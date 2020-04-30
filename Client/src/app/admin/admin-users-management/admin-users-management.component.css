@@ -1,0 +1,30 @@
+.pagination {
+    --color: rgb(52, 58, 64);
+}
+
+.pagination>li>button {
+    background-color: white;
+    color: var(--color);
+}
+
+.pagination>li>button:focus,
+.pagination>li>button:hover {
+    color: #5a5a5a;
+    background-color: #eee;
+    border-color: #ddd;
+}
+
+.pagination>.active>button {
+    color: white;
+    background-color: var(--color) !Important;
+    border: solid 1px var(--color) !Important;
+}
+
+.pagination>.active>button:hover {
+    color: white;
+    cursor: default;
+}
+
+.pagination>.disabled>button {
+    color: gray;
+}

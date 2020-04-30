@@ -1,0 +1,42 @@
+<form [formGroup]="formLogIn" (submit)="submit()">
+    <div class="form-group">
+        <label for="username"
+            [class.text-danger]="formControls['username'].invalid && formControls['username'].touched">Username</label>
+        <input id="username" formControlName="username" type="username" class="form-control"
+            [class.is-invalid]="formControls['username'].invalid && formControls['username'].touched">
+        <label class="col text-danger"
+            *ngIf="formControls['username'].touched && formControls['username'].hasError('required')">
+            Username is Required!
+        </label>
+        <label class="col text-danger"
+            *ngIf="formControls['username'].touched && formControls['username'].hasError('minlength')">
+            Must be at least 3 characters!
+        </label>
+        <label class="col text-danger" *ngIf="formControls['username'].hasError('validCharacters')">
+            Username can contain only [a-zA-Z\d-._@+]!
+        </label>
+    </div>
+    <div class="form-group">
+        <label for="password"
+            [class.text-danger]="formControls['password'].touched && formControls['password'].invalid">Password:</label>
+        <input id="password" formControlName="password" type="password" class="form-control"
+            [class.is-invalid]="formControls['password'].touched && formControls['password'].invalid">
+        <label class="col pt-2 text-danger"
+            *ngIf="formControls['password'].touched && formControls['password'].hasError('required')">
+            Password is Required!
+        </label>
+        <label class="col pt-2 text-danger"
+            *ngIf="formControls['password'].touched && formControls['password'].invalid && !formControls['password'].hasError('required')">
+            Password is invalid!
+        </label>
+    </div>
+    <label class="col text-danger" *ngIf="serverErrorMessage">
+            {{serverErrorMessage}}
+    </label>
+    <div class="form-group">
+        <button [disabled]="formLogIn.invalid" type="submit"
+            class="btn btn-outline-dark btn-block font-weight-bold">
+            Log in <span [class.d-none]="!loading" class="spinner-border spinner-border-sm"></span>
+        </button>
+    </div>
+</form>

@@ -1,0 +1,91 @@
+<form [formGroup]="formSignUp" (submit)="submit()">
+    <div class="form-group">
+        <label for="username"
+            [class.text-danger]="formControls['username'].invalid && formControls['username'].touched">Username</label>
+        <input id="username" formControlName="username" type="username" class="form-control"
+            [class.is-invalid]="formControls['username'].invalid && formControls['username'].touched">
+        <label class="col text-danger"
+            *ngIf="formControls['username'].touched && formControls['username'].hasError('required')">
+            Username is Required!
+        </label>
+        <label class="col text-danger"
+            *ngIf="formControls['username'].touched && formControls['username'].hasError('minlength')">
+            Must be at least 3 characters!
+        </label>
+        <label class="col text-danger" *ngIf="formControls['username'].hasError('validCharacters')">
+            Username can contain only [a-zA-Z\d-._@+]!
+        </label>
+    </div>
+    <div class="form-group">
+        <label for="email" [class.text-danger]="formControls['email'].invalid && formControls['email'].touched">Email
+            Address</label>
+        <input id="email" formControlName="email" type="email" class="form-control"
+            [class.is-invalid]="formControls['email'].invalid && formControls['email'].touched">
+        <label class="col pt-2 text-danger" *ngIf="formControls['email'].hasError('email')">
+            Enter a valid email address!
+        </label>
+    </div>
+    <div class="form-group">
+        <label for="password"
+            [class.text-danger]="formControls['password'].touched && formControls['password'].invalid">Password:</label>
+        <input id="password" formControlName="password" type="password" class="form-control"
+            [class.is-invalid]="formControls['password'].touched && formControls['password'].invalid">
+
+        <label class="col pt-2"
+            [ngClass]="formControls['password'].hasError('required') || formControls['password'].hasError('minlength')  ? 'text-danger' : 'text-success'">
+            <i class="far"
+                [ngClass]="formControls['password'].hasError('required') || formControls['password'].hasError('minlength')? 'fa-times-circle' : 'fa-check-circle'"></i>
+            Must be at least 8 characters!
+        </label>
+        <label class="col"
+            [ngClass]="formControls['password'].hasError('required') || formControls['password'].hasError('hasNumber')  ? 'text-danger' : 'text-success'">
+            <i class="far"
+                [ngClass]="formControls['password'].hasError('required') || formControls['password'].hasError('hasNumber') ? 'fa-times-circle' : 'fa-check-circle'"></i>
+            Must contain at least 1 number!
+        </label>
+        <label class="col"
+            [ngClass]="formControls['password'].hasError('required') || formControls['password'].hasError('hasCapitalCase')  ? 'text-danger' : 'text-success'">
+            <i class="far"
+                [ngClass]="formControls['password'].hasError('required') || formControls['password'].hasError('hasCapitalCase') ? 'fa-times-circle' : 'fa-check-circle'"></i>
+            Must contain at least 1 in Capital Case!
+        </label>
+        <label class="col"
+            [ngClass]="formControls['password'].hasError('required') || formControls['password'].hasError('hasSmallCase')  ? 'text-danger' : 'text-success'">
+            <i class="far"
+                [ngClass]="formControls['password'].hasError('required') ||formControls['password'].hasError('hasSmallCase') ? 'fa-times-circle' : 'fa-check-circle'"></i>
+            Must contain at least 1 Letter in Small Case!
+        </label>
+        <label class="col"
+            [ngClass]="formControls['password'].hasError('required') || formControls['password'].hasError('hasSpecialCharacters') ? 'text-danger' : 'text-success'">
+            <i class="far"
+                [ngClass]="formControls['password'].hasError('required') || formControls['password'].hasError('hasSpecialCharacters') ? 'fa-times-circle' : 'fa-check-circle'"></i>
+            Must contain at least 1 Special Character!
+        </label>
+    </div>
+    <div class="form-group">
+        <label for="confirmPassword"
+            [class.text-danger]="formControls['confirmPassword'].touched && formControls['confirmPassword'].invalid">
+            Confirm Password:
+        </label>
+        <input id="confirmPassword" formControlName="confirmPassword" type="password" class="form-control"
+            [ngClass]="formControls['confirmPassword'].touched && formControls['confirmPassword'].invalid ? 'is-invalid' : ''">
+        <label class="col pt-2 text-danger"
+            *ngIf="formControls['confirmPassword'].touched && formControls['confirmPassword'].hasError('required')">
+            Password is Required!
+        </label>
+        <label class="col pt-2 text-danger"
+            *ngIf="formControls['confirmPassword'].touched && formControls['confirmPassword'].hasError('NoPasswordMatch')">
+            Passwords do not match!
+        </label>
+        <label class="col pt-2 text-danger" *ngFor="let error of serverErrorMessage">
+            {{error.description}}
+        </label>
+    </div>
+    
+    <div class="form-group">
+        <button [disabled]="formSignUp.invalid" type="submit"
+            class="btn btn-outline-dark btn-block font-weight-bold">
+            Sign up <span [class.d-none]="! loading" class="spinner-border spinner-border-sm"></span>
+        </button>
+    </div>
+</form>
