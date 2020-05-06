@@ -1,7 +1,7 @@
 ﻿using KnowledgeTestingService.DAL.EF;
 using KnowledgeTestingService.DAL.Entities.Base;
 using System;
-using System.Linq;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace KnowledgeTestingService.DAL.Repositories
@@ -18,7 +18,8 @@ namespace KnowledgeTestingService.DAL.Repositories
         }
 
         public abstract Task<TEntity> GetAsync(int id);
-        public abstract IQueryable<TEntity> GetAll();
+        public abstract Task<IEnumerable<TEntity>> GetAll();
+        public abstract Task<IEnumerable<TEntity>> GetAll(int offset, int count);
         public abstract void Delete(int id);
         public abstract void Add(TEntity entity);
         public abstract void Update(TEntity entity);

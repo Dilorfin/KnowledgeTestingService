@@ -1,6 +1,7 @@
 ﻿using KnowledgeTestingService.DAL.EF;
 using KnowledgeTestingService.DAL.Entities;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -24,11 +25,22 @@ namespace KnowledgeTestingService.DAL.Repositories.Tests
                 .FirstOrDefaultAsync(t => t.Id == id);
         }
 
-        public override IQueryable<Test> GetAll()
+        public override async Task<IEnumerable<Test>> GetAll()
         {
-            return tests
+            return await tests
                 .Include(t => t.Questions)
-                .ThenInclude(q => q.Answers);
+                .ThenInclude(q => q.Answers)
+                .ToListAsync();
+        }
+
+        public override async Task<IEnumerable<Test>> GetAll(int offset, int count)
+        {
+            return await tests
+                .Include(t => t.Questions)
+                .ThenInclude(q => q.Answers)
+                .Skip(offset)
+                .Take(count)
+                .ToListAsync();
         }
 
         public override void Delete(int id)

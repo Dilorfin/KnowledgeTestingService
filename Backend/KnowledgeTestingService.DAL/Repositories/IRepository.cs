@@ -1,6 +1,6 @@
 ﻿using KnowledgeTestingService.DAL.Entities.Base;
 using System;
-using System.Linq;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace KnowledgeTestingService.DAL.Repositories
@@ -19,7 +19,15 @@ namespace KnowledgeTestingService.DAL.Repositories
         /// Gets all entities from data source.
         /// </summary>
         /// <returns>Returns all entities</returns>
-        IQueryable<TEntity> GetAll();
+        Task<IEnumerable<TEntity>> GetAll();
+
+        /// <summary>
+        /// Get certain amount of entities starting from specified offset.
+        /// </summary>
+        /// <param name="offset">Number of entities to skip</param>
+        /// <param name="count">Number of entities to return</param>
+        /// <returns>Returns count of entities from the offset</returns>
+        Task<IEnumerable<TEntity>> GetAll(int offset, int count);
 
         /// <summary>
         /// Deletes entity by id in data source.
