@@ -10,10 +10,10 @@ namespace KnowledgeTestingService.DAL.EF
         public DbSet<Answer> Answers { get; set; }
         public DbSet<TestResult> TestResults { get; set; }
 
-        public ApplicationDbContext(DbContextOptions dbContextOptions)
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> dbContextOptions)
             : base(dbContextOptions)
         {
-            base.Database.EnsureCreated();
+            Database.EnsureCreated();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
