@@ -1,5 +1,4 @@
 ﻿using KnowledgeTestingService.BLL.Questions;
-using System;
 using System.Collections.Generic;
 
 namespace KnowledgeTestingService.BLL.Tests
@@ -10,7 +9,7 @@ namespace KnowledgeTestingService.BLL.Tests
 
         public string Title { get; set; }
         public string Description { get; set; }
-        public TimeSpan Time { get; set; }
+        public long Time { get; set; }
 
         public IEnumerable<QuestionDto> Questions { get; set; }
     }

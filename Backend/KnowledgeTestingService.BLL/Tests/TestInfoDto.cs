@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace KnowledgeTestingService.BLL.Tests
+﻿namespace KnowledgeTestingService.BLL.Tests
 {
     public class TestInfoDto
     {
@@ -8,6 +6,6 @@ namespace KnowledgeTestingService.BLL.Tests
 
         public string Title { get; set; }
         public string Description { get; set; }
-        public TimeSpan Time { get; set; }
+        public long Time { get; set; }
     }
 }

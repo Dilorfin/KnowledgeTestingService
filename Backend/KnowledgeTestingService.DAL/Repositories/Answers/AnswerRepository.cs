@@ -63,5 +63,12 @@ namespace KnowledgeTestingService.DAL.Repositories.Answers
         {
             return await answers.AnyAsync(a => a.Id == id);
         }
+
+        public async Task<IEnumerable<Answer>> GetCorrectAnswersForTest(int testId)
+        {
+            return await answers.Where(answer => 
+                answer.IsCorrect && answer.Question.TestId == testId
+            ).ToListAsync();
+        }
     }
 }

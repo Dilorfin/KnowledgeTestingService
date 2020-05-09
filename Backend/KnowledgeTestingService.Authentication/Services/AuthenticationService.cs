@@ -62,7 +62,7 @@ namespace KnowledgeTestingService.Authentication.Services
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = claimsIdentity,
-                Expires = DateTime.Now.AddHours(7),
+                Expires = DateTime.UtcNow.AddHours(7),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
 

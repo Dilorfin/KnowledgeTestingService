@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace KnowledgeTestingService.DAL.EF
 {
-    public class ApplicationDbContext : DbContext
+    public sealed class ApplicationDbContext : DbContext
     {
         public DbSet<Test> Tests { get; set; }
         public DbSet<Question> Questions { get; set; }

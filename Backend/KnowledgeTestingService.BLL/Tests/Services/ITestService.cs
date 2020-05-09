@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace KnowledgeTestingService.BLL.Tests.Services
 {
     public interface ITestService
     {
-        FullTestDto GetFullTest(int id);
-        TestInfoDto GeTestInfo(int id);
-        IEnumerable<TestInfoDto> GeAllTestsInfo();
-
-        // TODO: check test results
+        Task<IEnumerable<TestInfoDto>> GeAllTestsInfo();
+        Task<IEnumerable<TestInfoDto>> GeAllTestsInfo(int offset, int count);
+        Task<FullTestDto> GetFullTest(int id);
+        Task<TestInfoDto> GeTestInfo(int id);
     }
 }

@@ -1,6 +1,8 @@
 ﻿using KnowledgeTestingService.API.Services.Authentication;
 using KnowledgeTestingService.Authentication;
 using KnowledgeTestingService.Authentication.Services;
+using KnowledgeTestingService.BLL.TestResults.Services;
+using KnowledgeTestingService.BLL.Tests.Services;
 using KnowledgeTestingService.DAL.EF;
 using KnowledgeTestingService.DAL.UnitOfWork;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -29,6 +31,8 @@ namespace KnowledgeTestingService.API
 
             services.AddScoped<IAccountService, AccountService>();
 
+            services.AddScoped<ITestService, TestService>();
+            services.AddScoped<ITestResultService, TestResultService>();
 
             return services;
         }

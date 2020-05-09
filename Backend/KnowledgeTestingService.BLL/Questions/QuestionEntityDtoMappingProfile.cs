@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using KnowledgeTestingService.DAL.Entities;
 
 namespace KnowledgeTestingService.BLL.Questions
 {
@@ -6,7 +7,7 @@ namespace KnowledgeTestingService.BLL.Questions
     {
         public QuestionEntityDtoMappingProfile()
         {
-
+            CreateMap<Question, QuestionDto>();
         }
     }
 }
