@@ -41,5 +41,10 @@ namespace KnowledgeTestingService.BLL.Tests.Services
             var testInfoDto = mapper.Map<TestInfoDto>(test);
             return testInfoDto;
         }
+
+        public async Task<long> GetTestsCount()
+        {
+            return await dataStorage.Tests.LongCountAsync();
+        }
     }
 }

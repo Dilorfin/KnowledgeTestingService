@@ -63,5 +63,10 @@ namespace KnowledgeTestingService.DAL.Repositories.Tests
         {
             return await tests.AnyAsync(t => t.Id == id);
         }
+
+        public async Task<long> LongCountAsync()
+        {
+            return await tests.LongCountAsync();
+        }
     }
 }

@@ -9,5 +9,7 @@ namespace KnowledgeTestingService.BLL.Tests.Services
         Task<IEnumerable<TestInfoDto>> GeAllTestsInfo(int offset, int count);
         Task<FullTestDto> GetFullTest(int id);
         Task<TestInfoDto> GeTestInfo(int id);
+
+        Task<long> GetTestsCount();
     }
 }
