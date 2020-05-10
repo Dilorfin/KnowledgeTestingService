@@ -34,27 +34,27 @@ namespace KnowledgeTestingService.API.Controllers
             var userDtos = await accountService.GetAll(offset, count);
             var userModels = mapper.Map<IEnumerable<UserModel>>(userDtos);
 
-            return Ok(new { usersCount, userModels });
+            return Ok(new { ItemsCount = usersCount, ItemsModels = userModels });
         }
 
         /// <summary>
         /// Performs user adding admin role.
         /// </summary>
-        /// <param name="model">User set admin model</param>
+        /// <param name="userId">TODO</param>
         /// <response code="200">If adding admin role succeeded</response>
         /// <response code="400">If the model is invalid or contains invalid data</response>
         [Authorize(Roles = "admin")]
         [HttpPost("SetAdmin")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
-        public async Task<IActionResult> SetAdmin([FromBody]UserIdModel model)
+        public async Task<IActionResult> SetAdmin(string userId)
         {
-            if (model is null || string.IsNullOrEmpty(model.Id))
+            if (string.IsNullOrEmpty(userId))
             {
                 return BadRequest();
             }
 
-            var identityErrors = await accountService.SetAdmin(model.Id);
+            var identityErrors = await accountService.SetAdmin(userId);
             if (identityErrors.Any())
             {
                 return BadRequest(identityErrors);
@@ -66,21 +66,21 @@ namespace KnowledgeTestingService.API.Controllers
         /// <summary>
         /// Performs user adding admin role.
         /// </summary>
-        /// <param name="model">User set admin model</param>
+        /// <param name="userId">TODO</param>
         /// <response code="200">If removing admin role succeeded</response>
         /// <response code="400">If the model is invalid or contains invalid data</response>
         [Authorize(Roles = "admin")]
         [HttpPost("RemoveAdmin")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
-        public async Task<IActionResult> RemoveAdmin([FromBody]UserIdModel model)
+        public async Task<IActionResult> RemoveAdmin(string userId)
         {
-            if (model is null || string.IsNullOrEmpty(model.Id))
+            if (string.IsNullOrEmpty(userId))
             {
                 return BadRequest();
             }
 
-            var identityErrors = await accountService.RemoveAdmin(model.Id);
+            var identityErrors = await accountService.RemoveAdmin(userId);
             if (identityErrors.Any())
             {
                 return BadRequest(identityErrors);
@@ -91,14 +91,14 @@ namespace KnowledgeTestingService.API.Controllers
 
         [Authorize(Roles = "admin")]
         [HttpPost("Ban")]
-        public async Task<IActionResult> BanUser([FromBody]UserIdModel model)
+        public async Task<IActionResult> BanUser(string userId)
         {
-            if (model is null || string.IsNullOrEmpty(model.Id))
+            if (string.IsNullOrEmpty(userId))
             {
                 return BadRequest();
             }
 
-            var identityErrors = await accountService.BanUser(model.Id);
+            var identityErrors = await accountService.BanUser(userId);
             if (identityErrors.Any())
             {
                 return BadRequest(identityErrors);
@@ -108,14 +108,14 @@ namespace KnowledgeTestingService.API.Controllers
 
         [Authorize(Roles = "admin")]
         [HttpPost("Unban")]
-        public async Task<IActionResult> UnbanUser([FromBody]UserIdModel model)
+        public async Task<IActionResult> UnbanUser(string userId)
         {
-            if (model is null || string.IsNullOrEmpty(model.Id))
+            if (string.IsNullOrEmpty(userId))
             {
                 return BadRequest();
             }
 
-            var identityErrors = await accountService.UnbanUser(model.Id);
+            var identityErrors = await accountService.UnbanUser(userId);
             if (identityErrors.Any())
             {
                 return BadRequest(identityErrors);

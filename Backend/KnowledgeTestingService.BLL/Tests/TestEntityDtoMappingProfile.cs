@@ -8,9 +8,10 @@ namespace KnowledgeTestingService.BLL.Tests
         public TestEntityDtoMappingProfile()
         {
             CreateMap<Test, FullTestDto>()
-                .ForPath(dest => dest.Time, src => src.MapFrom(t=> t.Time.Ticks));
+                .ForPath(dest => dest.Time, src => src.MapFrom(t=> t.Time.TotalMilliseconds));
             CreateMap<Test, TestInfoDto>()
-                .ForPath(dest => dest.Time, src => src.MapFrom(t=> t.Time.Ticks));
+                .ForPath(dest => dest.Time, src => src.MapFrom(t=> t.Time.TotalMilliseconds))
+                .ForPath(dest => dest.QuestionsNumber, src => src.MapFrom(t => t.Questions.Count));
         }
     }
 }
