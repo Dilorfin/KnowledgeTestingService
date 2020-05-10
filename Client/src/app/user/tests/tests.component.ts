@@ -1,35 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { TestInfo } from 'src/app/_models/tests/test-info';
+import { Pagination } from 'src/app/_helpers/pagination';
+import { TestsService } from './tests.service';
 
 @Component({
 	selector: 'app-tests',
 	templateUrl: './tests.component.html',
 	styleUrls: ['./tests.component.css']
 })
-export class TestsComponent implements OnInit {
-
-	items: any[] = [
-
-	];
-
-	constructor(private router: Router) {}
+export class TestsComponent extends Pagination<TestInfo> implements OnInit {
+	
+	constructor(private router: Router, private testsService : TestsService) {
+		super((offset, count) => testsService.getTestsInfo(offset, count));
+	}
 
 	ngOnInit(): void {
-		for (let index = 0; index < 15; index++) {
-			this.items.push({
-				Id: index,
-				Title: "title",
-				"Description": "description",
-				"Time": "time"
-			});
-		}
+		this.openPage(0);
 	}
-	openTestInfo(num: number): void {
-		//this.router.navigate([""]);
-		console.info(num);
-	}
-	empty(): void {
-		
-		console.info("shit");
+	openTestInfo(test: TestInfo): void {
+		this.router.navigate([`tests/${test.id}`]);
 	}
 }

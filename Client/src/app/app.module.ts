@@ -22,6 +22,7 @@ import { JwtInterceptor } from './_helpers/jwt.interceptor';
 import { ErrorInterceptor } from './_helpers/error.interceptor';
 import { AuthGuard } from './_helpers/auth.guard';
 import { AuthService } from './auth/auth.service';
+import { TestCardComponent } from './user/tests/test-card/test-card.component';
 
 
 const adminRoutes: Routes = [
@@ -34,6 +35,7 @@ const adminRoutes: Routes = [
 const userRoutes: Routes = [
 	{ path: '', component: WelcomeComponent },
 	{ path: 'tests', component: TestsComponent },
+	{ path: 'tests/:id', component: TestCardComponent },
 	{ path: 'profile', component: ProfileComponent },
 	{ path: 'statistic', component: StatisticComponent }
 ]
@@ -65,7 +67,8 @@ const appRouts: Routes = [
 		UserComponent,
 		AuthComponent,
 		AuthLogInComponent,
-		AuthSignUpComponent
+		AuthSignUpComponent,
+		TestCardComponent
 	],
 	imports: [
 		BrowserModule,

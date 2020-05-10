@@ -1,5 +1,4 @@
 <div class="row">
-	
 	<div class="col-sm">
 		<h2>Users</h2>
 		<table class="table table-hover">
@@ -9,18 +8,22 @@
 					<th>UserName</th>
                     <th>Email</th>
                     <th>Role</th>
-                    <th>Lockout</th>
+                    <th>Ban end date</th>
+                    <th>Ban</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr *ngFor="let user of users">
+				<tr *ngFor="let user of items">
 					<td>{{user.id}}</td>
 					<td>{{user.userName}}</td>
 					<td>{{user.email}}</td>
 					<td>{{user.isAdmin ? "admin" : "user"}}</td>
 					<td>
-                        <button class="btn btn-sm btn-outline-danger btn-block"*ngIf="!user.lockoutEnd" (click)="lockout(user.id);">BAN!</button>
-                        <span *ngIf="user.lockoutEnd">{{formateDate(user.lockoutEnd)}}</span>
+                        <span *ngIf="user.lockoutEnd">{{user.lockoutEnd | date}}</span>
+                    </td>
+                    <td>
+                        <button class="btn btn-sm btn-outline-info btn-block" *ngIf="user.lockoutEnd" (click)="unban(user.id);">UNBAN!</button>
+                        <button class="btn btn-sm btn-outline-danger btn-block" *ngIf="!user.lockoutEnd" (click)="ban(user.id);">BAN!</button>
                     </td>
 				</tr>
 			</tbody>
