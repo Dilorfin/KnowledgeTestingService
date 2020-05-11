@@ -6,8 +6,6 @@ namespace KnowledgeTestingService.API.Models.Test
     {
         public int TestId { get; set; }
 
-        public long AttemptDate { get; set; }
-
         public IEnumerable<KeyValuePair<int, int>> Answers { get; set; }
     }
 }

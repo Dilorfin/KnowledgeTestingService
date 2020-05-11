@@ -4,7 +4,6 @@ using KnowledgeTestingService.BLL.Answers;
 using KnowledgeTestingService.BLL.Questions;
 using KnowledgeTestingService.BLL.TestResults;
 using KnowledgeTestingService.BLL.Tests;
-using System;
 
 namespace KnowledgeTestingService.API.MappingConfigurations
 {
@@ -17,11 +16,7 @@ namespace KnowledgeTestingService.API.MappingConfigurations
             CreateMap<QuestionDto, QuestionModel>();
             CreateMap<AnswerDto, AnswerModel>();
 
-            CreateMap<UserAnswersModel, TestResultCreateDto>()
-                .ForMember(dst => dst.AttemptDate,
-                    src =>
-                        src.MapFrom(m => new DateTime(m.AttemptDate)
-                    ));
+            CreateMap<UserAnswersModel, TestResultCreateDto>();
         }
     }
 }
