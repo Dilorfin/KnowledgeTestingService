@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using KnowledgeTestingService.API.Models.Test;
+using KnowledgeTestingService.API.Services.Tests;
 using KnowledgeTestingService.BLL.TestResults;
 using KnowledgeTestingService.BLL.TestResults.Services;
 using KnowledgeTestingService.BLL.Tests.Services;
@@ -18,21 +19,22 @@ namespace KnowledgeTestingService.API.Controllers
         private readonly ITestResultService testResultService;
         private readonly ITestService testService;
         private readonly IMapper mapper;
+        private readonly ITestPassingResponseComposer responseComposer;
 
         public TestPassingController(ITestResultService testResultService, ITestService testService,
-            IMapper mapper)
+            IMapper mapper, ITestPassingResponseComposer responseComposer)
         {
             this.testResultService = testResultService;
             this.testService = testService;
             this.mapper = mapper;
+            this.responseComposer = responseComposer;
         }
 
         [HttpGet("GetFullTest/{id}")]
         public async Task<IActionResult> GetFullTest(int id)
         {
-            var fullTestDto = await testService.GetFullTest(id);
-            var fullTestModel = mapper.Map<FullTestModel>(fullTestDto);
-            return Ok(fullTestModel);
+            var result = await testService.GetFullTest(id);
+            return responseComposer.ComposeForGetFullTest(result);
         }
 
         [HttpPost("CheckUserAnswers")]
@@ -42,10 +44,10 @@ namespace KnowledgeTestingService.API.Controllers
                 return BadRequest();
 
             string userId = HttpContext.User.FindFirst(ClaimTypes.Name)?.Value;
-
             var testResultCreateDto = mapper.Map<TestResultCreateDto>(model);
+            
             var result = await testResultService.AddResult(userId, testResultCreateDto);
-            return Ok(result);
+            return responseComposer.ComposeForCheckUserAnswers(result);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using KnowledgeTestingService.API.Models.Test;
+using KnowledgeTestingService.API.Services.Tests;
 using KnowledgeTestingService.BLL.Tests.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -15,11 +16,14 @@ namespace KnowledgeTestingService.API.Controllers
     {
         private readonly ITestService testService;
         private readonly IMapper mapper;
+        private readonly ITestQueryingResponseComposer responseComposer;
 
-        public TestQueryingController(ITestService testService, IMapper mapper)
+        public TestQueryingController(ITestService testService, IMapper mapper,
+            ITestQueryingResponseComposer responseComposer)
         {
             this.testService = testService;
             this.mapper = mapper;
+            this.responseComposer = responseComposer;
         }
 
         [HttpGet("GetAllTestsInfo")]
@@ -29,16 +33,15 @@ namespace KnowledgeTestingService.API.Controllers
 
             var allTestsInfo = await testService.GeAllTestsInfo(offset, count);
             var testModels = mapper.Map<IEnumerable<TestInfoModel>>(allTestsInfo);
-
-            return Ok(new { ItemsCount = testCount, ItemsModels = testModels });
+            
+            return responseComposer.ComposeForGetAllTestsInfo(testCount, testModels);
         }
 
         [HttpGet("GetTestInfo/{id}")]
-        public async Task<IActionResult> GetAllTestsInfo(int id)
+        public async Task<IActionResult> GetTestInfo(int id)
         {
-            var allTestsInfo = await testService.GeTestInfo(id);
-            var testInfoModel = mapper.Map<TestInfoModel>(allTestsInfo);
-            return Ok(testInfoModel);
+            var result = await testService.GeTestInfo(id);
+            return responseComposer.ComposeForGetTestInfo(result);;
         }
     }
 }

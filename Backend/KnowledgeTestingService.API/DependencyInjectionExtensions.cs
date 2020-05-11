@@ -1,4 +1,5 @@
 ﻿using KnowledgeTestingService.API.Services.Authentication;
+using KnowledgeTestingService.API.Services.Tests;
 using KnowledgeTestingService.Authentication;
 using KnowledgeTestingService.Authentication.Services;
 using KnowledgeTestingService.BLL.TestResults.Services;
@@ -33,6 +34,9 @@ namespace KnowledgeTestingService.API
 
             services.AddScoped<ITestService, TestService>();
             services.AddScoped<ITestResultService, TestResultService>();
+
+            services.AddScoped<ITestPassingResponseComposer, TestPassingResponseComposer>();
+            services.AddScoped<ITestQueryingResponseComposer, TestQueryingResponseComposer>();
 
             return services;
         }

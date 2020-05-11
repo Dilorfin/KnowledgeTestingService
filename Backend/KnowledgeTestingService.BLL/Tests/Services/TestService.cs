@@ -2,6 +2,7 @@
 using KnowledgeTestingService.DAL.UnitOfWork;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using KnowledgeTestingService.Common;
 
 namespace KnowledgeTestingService.BLL.Tests.Services
 {
@@ -28,18 +29,28 @@ namespace KnowledgeTestingService.BLL.Tests.Services
             return mapper.Map<IEnumerable<TestInfoDto>>(tests);
         }
 
-        public async Task<FullTestDto> GetFullTest(int id)
+        public async Task<Result<FullTestDto>> GetFullTest(int id)
         {
             var test = await dataStorage.Tests.GetAsync(id);
+            if (test is null)
+            {
+                return Result.Fail<FullTestDto>(-1);
+            }
+
             var fullTestDto = mapper.Map<FullTestDto>(test);
-            return fullTestDto;
+            return Result.Ok(fullTestDto);
         }
 
-        public async Task<TestInfoDto> GeTestInfo(int id)
+        public async Task<Result<TestInfoDto>> GeTestInfo(int id)
         {
             var test = await dataStorage.Tests.GetAsync(id);
+            if (test is null)
+            {
+                return Result.Fail<TestInfoDto>(-1);
+            }
+
             var testInfoDto = mapper.Map<TestInfoDto>(test);
-            return testInfoDto;
+            return Result.Ok(testInfoDto);
         }
 
         public async Task<long> GetTestsCount()
