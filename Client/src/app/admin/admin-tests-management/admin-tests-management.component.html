@@ -1,1 +1,63 @@
-<p>admin-tests-management works!</p>
+<div class="row">
+	<div class="col-sm-4">
+		<h3>Filtration</h3>
+		<div class="form-group">
+			<label for="name-filter">Name:</label>
+			<input type="text" class="form-control" id="name-filter" name="filter">
+		</div>
+		<hr class="d-sm-none">
+	</div>
+	<div class="col-sm-8">
+		<div class="clearfix">
+            <h2 class="float-left">Tests list</h2>
+            <button routerLink="/admin/test-editing/0" class="float-right btn btn-outline-success">
+                <i class="fas fa-plus"></i> Add
+            </button>
+        </div>
+		<table class="table">
+			<thead class="thead-light">
+				<tr>
+					<th>Title</th>
+					<th>Questions number</th>
+                    <th>Time</th>
+                    <th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr *ngFor="let testInfo of items" (click)="editTest(testInfo);">
+					<td>{{testInfo.title}}</td>
+					<td>{{testInfo.questionsNumber}}</td>
+                    <td>{{testInfo.time | date:'HH:mm:ss':'UTC'}}</td>
+                    <td class="p-0">
+                        <button [routerLink]="'/admin/test-editing/'+testInfo.id" class="brn btn-outline-dark p-1 m-1 rounded">
+                            <i class="fas fa-edit fa-sm"></i>
+                        </button>
+                    </td>
+				</tr>
+			</tbody>
+		</table>
+		<ul class="pagination mw-100 flex-wrap justify-content-center">
+			<li class="page-item" [class.disabled]="isFirstPage">
+                <button class="page-link" (click)="openPage(currentPage-1)"><i class="fas fa-arrow-left"></i></button>
+            </li>
+            <li class="page-item" *ngIf="currentPage-2 >= 0">
+                <button class="page-link" (click)="openPage(currentPage-2)">{{currentPage-1}}</button>
+            </li>
+            <li class="page-item" *ngIf="currentPage-1 >= 0">
+                <button class="page-link" (click)="openPage(currentPage-1)">{{currentPage}}</button>
+            </li>
+            <li class="page-item active disabled">
+                <button class="page-link">{{currentPage+1}}</button>
+            </li>
+            <li class="page-item" *ngIf="currentPage+1 < pagesNumber">
+                <button class="page-link" (click)="openPage(currentPage+1)">{{currentPage+2}}</button>
+            </li>
+            <li class="page-item" *ngIf="currentPage+2 < pagesNumber">
+                <button class="page-link" (click)="openPage(currentPage+2)">{{currentPage+3}}</button>
+            </li>
+            <li class="page-item" [class.disabled]="isLastPage">
+                <button class="page-link" (click)="openPage(currentPage+1)"><i class="fas fa-arrow-right"></i></button>
+            </li>
+		</ul>
+	</div>
+</div>

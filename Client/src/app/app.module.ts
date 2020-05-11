@@ -26,13 +26,15 @@ import { StartAttemptComponent } from './test-passing/start-attempt/start-attemp
 import { EndAttemptComponent } from './test-passing/end-attempt/end-attempt.component';
 import { QuestionsComponent } from './test-passing/questions/questions.component';
 import { TestPassingService } from './test-passing/test-passing.service';
+import { TestEditingComponent } from './admin/admin-tests-management/test-editing/test-editing.component';
 
 
 const adminRoutes: Routes = [
 	{ path: '', component: AdminStatisticComponent },
 	{ path: 'statistic', component: AdminStatisticComponent },
 	{ path: 'users-management', component: AdminUsersManagementComponent },
-	{ path: 'tests-management', component: AdminTestsManagementComponent }
+	{ path: 'tests-management', component: AdminTestsManagementComponent },
+	{ path: 'test-editing/:testId', component: TestEditingComponent }
 ]
 
 const userRoutes: Routes = [
@@ -85,7 +87,8 @@ const appRouts: Routes = [
 		TestPassingComponent,
 		StartAttemptComponent,
 		EndAttemptComponent,
-		QuestionsComponent
+		QuestionsComponent,
+		TestEditingComponent
 	],
 	imports: [
 		BrowserModule,
