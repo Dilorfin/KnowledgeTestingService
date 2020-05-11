@@ -12,9 +12,9 @@ namespace KnowledgeTestingService.DAL.EF
                 new Test
                 {
                     Id = 1,
-                    Description = "Testing tests",
-                    Time = new TimeSpan(0, 5, 0),
-                    Title = "Test"
+                    Title = "Literature test",
+                    Description = "Several questions about literature",
+                    Time = new TimeSpan(0, 2, 0)
                 }
             );
 
@@ -23,6 +23,18 @@ namespace KnowledgeTestingService.DAL.EF
                 {
                     Id = 1,
                     QuestionText = "What does the raven says in a poem by Edgar Allan Poe \"The Raven\"?",
+                    TestId = 1
+                },
+                new Question
+                {
+                    Id = 2,
+                    QuestionText = "George Orwell’s Nineteen Eighty-Four was published in which year?",
+                    TestId = 1
+                },
+                new Question
+                {
+                    Id = 3,
+                    QuestionText = "Who wrote The Picture of Dorian Gray?",
                     TestId = 1
                 }
             );
@@ -41,6 +53,48 @@ namespace KnowledgeTestingService.DAL.EF
                     AnswerText = "Caw!",
                     IsCorrect = false,
                     QuestionId = 1
+                },
+                new Answer
+                {
+                    Id = 3,
+                    AnswerText = "1969",
+                    IsCorrect = false,
+                    QuestionId = 2
+                },
+                new Answer
+                {
+                    Id = 4,
+                    AnswerText = "1949",
+                    IsCorrect = true,
+                    QuestionId = 2
+                },
+                new Answer
+                {
+                    Id = 5,
+                    AnswerText = "1947",
+                    IsCorrect = false,
+                    QuestionId = 2
+                },
+                new Answer
+                {
+                    Id = 6,
+                    AnswerText = "Oscar Dickson",
+                    IsCorrect = false,
+                    QuestionId = 3
+                },
+                new Answer
+                {
+                    Id = 7,
+                    AnswerText = "Oscar Wilde",
+                    IsCorrect = true,
+                    QuestionId = 3
+                },
+                new Answer
+                {
+                    Id = 8,
+                    AnswerText = "Oscar Mayer",
+                    IsCorrect = false,
+                    QuestionId = 3
                 }
             );
         }

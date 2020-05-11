@@ -1,0 +1,20 @@
+<p>{{timeLeft | date:"HH:mm:ss":"UTC"}}</p>
+
+<div *ngIf="question">
+    <h4>{{question.questionText}}</h4>
+
+    <div class="form-check" *ngFor="let answer of question.answers">
+        <input class="form-check-input" type="radio" name="answers" [attr.id]="'button'+answer.id"
+        [checked]="answer.id == checkedAnswer"
+            (click)="setAnswer(answer.id);">
+        <label class="form-check-label" [attr.for]="'button'+answer.id">
+            {{answer.answerText}}
+        </label>
+    </div>
+
+    <button (click)="previousQuestion();" *ngIf="questionIndex > 0">Previous question</button>
+    <button (click)="nextQuestion();" *ngIf="questionIndex+1 < test.questions.length">Next question</button>
+</div>
+
+
+<button (click)="finishTest();">Finish</button>

@@ -19,6 +19,6 @@ export class TestsComponent extends Pagination<TestInfo> implements OnInit {
 		this.openPage(0);
 	}
 	openTestInfo(test: TestInfo): void {
-		this.router.navigate([`tests/${test.id}`]);
+		this.router.navigate([`passing/${test.id}`]);
 	}
 }

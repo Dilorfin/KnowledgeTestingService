@@ -1,0 +1,8 @@
+<p>start-attempt works!</p>
+<div *ngIf="test">
+    <h4>{{test.title}}</h4>
+    <h4>{{test.description}}</h4>
+    <h4>{{test.time | date:"HH:mm:ss":"UTC"}}</h4>
+</div>
+
+<button (click)="startTest()">Start</button>

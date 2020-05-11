@@ -41,13 +41,27 @@ namespace KnowledgeTestingService.API.Controllers
         public async Task<IActionResult> CheckUserAnswers([FromBody] UserAnswersModel model)
         {
             if (model?.Answers is null)
-                return BadRequest();
+                return BadRequest("Here is no answers");
 
             string userId = HttpContext.User.FindFirst(ClaimTypes.Name)?.Value;
             var testResultCreateDto = mapper.Map<TestResultCreateDto>(model);
             
             var result = await testResultService.AddResult(userId, testResultCreateDto);
             return responseComposer.ComposeForCheckUserAnswers(result);
+        }
+
+
+        [HttpGet("GetResult/{id}")]
+        public async Task<IActionResult> GetResult(int id)
+        {
+            string userId = HttpContext.User.FindFirst(ClaimTypes.Name)?.Value;
+            var result = await testResultService.GetResult(userId, id);
+            if (result.Success)
+            {
+                return Ok(mapper.Map<TestResultModel>(result.Value));
+            }
+
+            return BadRequest();
         }
     }
 }

@@ -17,8 +17,4 @@ export class TestsService {
 			.set('count', count.toString());
 		return this.http.get<Items<TestInfo>>(`${environment.apiUrl}/TestQuerying/GetAllTestsInfo`, { params });
 	}
-
-	getTestInfo(id : number):Observable<TestInfo> {
-		return this.http.get<TestInfo>(`${environment.apiUrl}/TestQuerying/GetTestInfo/${id}`);
-	}
 }

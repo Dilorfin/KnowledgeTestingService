@@ -22,7 +22,11 @@ import { JwtInterceptor } from './_helpers/jwt.interceptor';
 import { ErrorInterceptor } from './_helpers/error.interceptor';
 import { AuthGuard } from './_helpers/auth.guard';
 import { AuthService } from './auth/auth.service';
-import { TestCardComponent } from './user/tests/test-card/test-card.component';
+import { TestPassingComponent } from './test-passing/test-passing.component';
+import { StartAttemptComponent } from './test-passing/start-attempt/start-attempt.component';
+import { EndAttemptComponent } from './test-passing/end-attempt/end-attempt.component';
+import { QuestionsComponent } from './test-passing/questions/questions.component';
+import { TestPassingService } from './test-passing/test-passing.service';
 
 
 const adminRoutes: Routes = [
@@ -35,7 +39,6 @@ const adminRoutes: Routes = [
 const userRoutes: Routes = [
 	{ path: '', component: WelcomeComponent },
 	{ path: 'tests', component: TestsComponent },
-	{ path: 'tests/:id', component: TestCardComponent },
 	{ path: 'profile', component: ProfileComponent },
 	{ path: 'statistic', component: StatisticComponent }
 ]
@@ -45,9 +48,22 @@ const authRoutes: Routes = [
 	{ path: 'sign-up', component: AuthSignUpComponent }
 ]
 
+const testPassingRoutes: Routes = [
+	{ path: '', redirectTo: 'start', pathMatch: 'full' },
+	{ path: 'start', component: StartAttemptComponent },
+	{ path: 'questions',  component: QuestionsComponent },
+	{ path: 'end', component: EndAttemptComponent }
+]
+
 const appRouts: Routes = [
 	{ path: '', component: UserComponent, children: userRoutes, canActivate: [AuthGuard] },
 	{ path: 'admin', component: AdminComponent, children: adminRoutes, canActivate: [AuthGuard] },
+	{
+		path: 'passing/:testId',
+		component: TestPassingComponent,
+		children: testPassingRoutes,
+		canActivate: [AuthGuard]
+	},
 	{ path: 'auth', component: AuthComponent, children: authRoutes },
 	{ path: '**', component: NotfoundComponent }
 ]
@@ -68,7 +84,10 @@ const appRouts: Routes = [
 		AuthComponent,
 		AuthLogInComponent,
 		AuthSignUpComponent,
-		TestCardComponent
+		TestPassingComponent,
+		StartAttemptComponent,
+		EndAttemptComponent,
+		QuestionsComponent
 	],
 	imports: [
 		BrowserModule,
@@ -81,7 +100,7 @@ const appRouts: Routes = [
 		{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
 		{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
 
-		AuthService
+		AuthService, TestPassingService
 	],
 	bootstrap: [AppComponent]
 })
