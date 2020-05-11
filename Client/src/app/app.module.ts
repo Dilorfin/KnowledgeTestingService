@@ -7,7 +7,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { TestsComponent } from './user/tests/tests.component';
 import { ProfileComponent } from './user/profile/profile.component';
-import { WelcomeComponent } from './user/welcome/welcome.component';
 import { StatisticComponent } from './user/statistic/statistic.component';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { AdminComponent } from './admin/admin.component';
@@ -37,7 +36,7 @@ const adminRoutes: Routes = [
 ]
 
 const userRoutes: Routes = [
-	{ path: '', component: WelcomeComponent },
+	{ path: '', redirectTo: 'tests', pathMatch: 'full' },
 	{ path: 'tests', component: TestsComponent },
 	{ path: 'profile', component: ProfileComponent },
 	{ path: 'statistic', component: StatisticComponent }
@@ -73,7 +72,6 @@ const appRouts: Routes = [
 		AppComponent,
 		TestsComponent,
 		ProfileComponent,
-		WelcomeComponent,
 		StatisticComponent,
 		NotfoundComponent,
 		AdminComponent,
