@@ -37,7 +37,7 @@ namespace KnowledgeTestingService.API.Services.Tests
         {
             if (result.Success)
             {
-                return new OkObjectResult(mapper.Map<FullTestModel>(result));
+                return new OkObjectResult(mapper.Map<FullTestModel>(result.Value));
             }
 
             if (result.Status == -1)
