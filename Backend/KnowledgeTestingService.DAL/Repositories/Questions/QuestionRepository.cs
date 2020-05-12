@@ -43,10 +43,9 @@ namespace KnowledgeTestingService.DAL.Repositories.Questions
                 .ToListAsync();
         }
 
-        public override void Delete(int id)
+        public override void Delete(Question entity)
         {
-            var question = new Question { Id = id };
-            questions.Remove(question);
+            questions.Remove(entity);
         }
 
         public override void Add(Question entity)

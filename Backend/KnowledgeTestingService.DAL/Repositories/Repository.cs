@@ -20,7 +20,7 @@ namespace KnowledgeTestingService.DAL.Repositories
         public abstract Task<TEntity> GetAsync(int id);
         public abstract Task<IEnumerable<TEntity>> GetAll();
         public abstract Task<IEnumerable<TEntity>> GetAll(int offset, int count);
-        public abstract void Delete(int id);
+        public abstract void Delete(TEntity entity);
         public abstract void Add(TEntity entity);
         public abstract void Update(TEntity entity);
         public abstract Task<bool> ContainsEntityWithId(int id);

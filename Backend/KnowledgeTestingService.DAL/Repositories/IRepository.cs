@@ -30,10 +30,10 @@ namespace KnowledgeTestingService.DAL.Repositories
         Task<IEnumerable<TEntity>> GetAll(int offset, int count);
 
         /// <summary>
-        /// Deletes entity by id in data source.
+        /// Deletes entity from data source.
         /// </summary>
-        /// <param name="id">Entity id</param>
-        void Delete(int id);
+        /// <param name="entity">Entity to delete</param>
+        void Delete(TEntity entity);
 
         /// <summary>
         /// Adds entity to data source.
