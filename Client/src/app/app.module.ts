@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from "@angular/router";
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
 import { TestsComponent } from './user/tests/tests.component';
@@ -30,7 +31,7 @@ import { TestEditingComponent } from './admin/admin-tests-management/test-editin
 
 
 const adminRoutes: Routes = [
-	{ path: '', component: AdminStatisticComponent },
+	{ path: '', redirectTo: 'tests-management', pathMatch:'full' },
 	{ path: 'statistic', component: AdminStatisticComponent },
 	{ path: 'users-management', component: AdminUsersManagementComponent },
 	{ path: 'tests-management', component: AdminTestsManagementComponent },
@@ -95,6 +96,7 @@ const appRouts: Routes = [
 		FormsModule,
 		ReactiveFormsModule,
 		HttpClientModule,
+		NgbModule,
 		RouterModule.forRoot(appRouts)
 	],
 	providers: [

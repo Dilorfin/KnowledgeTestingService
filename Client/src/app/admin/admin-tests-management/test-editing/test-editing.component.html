@@ -1,1 +1,105 @@
-<p>test-editing works!</p>
+<div class="row pb-4">
+    <div class="col-sm-4">
+        <table class="table table-bordered">
+            <tbody *ngIf="test">
+                <tr>
+                    <td>Test id</td>
+                    <td class="text-center">{{testId}}</td>
+                </tr>
+                <tr>
+                    <td>Title</td>
+                    <td class="text-center">{{test.title}}</td>
+                </tr>
+                <tr>
+                    <td>Time</td>
+                    <td class="text-center">{{test.time | date:"HH:mm:ss":"UTC"}}</td>
+                </tr>
+                <tr>
+                    <td>Questions number</td>
+                    <td class="text-center">{{test.questions.length}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-sm-8">
+        <div class="alert alert-warning alert-dismissible fade show">
+            <button type="button" class="close" data-dismiss="alert"><i class="fas fa-times"></i></button>
+            <strong>Warning!</strong> If you leave without saving, the changes will be lost.
+        </div>
+        <div *ngIf="errorMessage" class="alert alert-danger fade show">
+            <button type="button" class="close" (click)="closeErrorMessage()"><i class="fas fa-times"></i></button>
+            <strong>Error!</strong> {{errorMessage}}
+        </div>
+
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Title</span>
+            </div>
+            <input type="text" class="form-control" placeholder="Title" [(ngModel)]="test.title" />
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <h4 class="mr-2">Time for test:</h4>
+                <ngb-timepicker [(ngModel)]="test.time" size="small" [spinners]="false" [seconds]="true">
+                </ngb-timepicker>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="description">
+                <h4>Description:</h4>
+            </label>
+            <textarea class="form-control" rows="5" id="description" [(ngModel)]="test.description"></textarea>
+        </div>
+
+        <div>
+            <div class="clearfix mb-2">
+                <h4 class="float-left">Questions:</h4>
+                <!-- Adding question -->
+                <button class="float-right btn btn-outline-success" (click)="addQuestion()">
+                    <i class="fas fa-plus"></i> Question
+                </button>
+            </div>
+            <div class="mb-3" *ngFor="let question of test.questions; index as i">
+                <div class="input-group mb-1">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Question</span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Question" [(ngModel)]="question.questionText" />
+                    <div class="input-group-append">
+                        <!-- Removing question -->
+                        <button class="btn btn-outline-danger" (click)="removeQuestion(question)">
+                            <i class="far fa-trash-alt"></i>
+                        </button>
+                        <!-- Adding answer -->
+                        <button type="button" class="btn btn-outline-success" (click)="addAnswer(question)">
+                            <i class="fas fa-plus"></i> Answer
+                        </button>
+                    </div>
+                </div>
+                <div class="input-group mb-1" *ngFor="let answer of question.answers">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Answer</span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Answer" [(ngModel)]="answer.answerText" />
+                    <div class="input-group-append">
+                        <!-- Removing answer -->
+                        <button class="btn btn-outline-danger" (click)="removeAnswer(question, answer)">
+                            <i class="far fa-trash-alt"></i>
+                        </button>
+                        <div class="input-group-text">
+                            <input type="radio" [name]="'question' + i" (change)="changeCorrectAnswer(question, answer)"
+                                [checked]="answer.isCorrect">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <button class="btn btn-outline-success mr-2" (click)="save()">Save</button>
+            <button class="btn btn-outline-danger" (click)="cancel()">Cancel</button>
+        </div>
+    </div>
+</div>
