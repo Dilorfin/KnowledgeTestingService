@@ -8,6 +8,9 @@ namespace KnowledgeTestingService.BLL.Questions
         public QuestionEntityDtoMappingProfile()
         {
             CreateMap<Question, QuestionDto>();
+
+            CreateMap<Question, EditQuestionDto>();
+            CreateMap<EditQuestionDto, Question>();
         }
     }
 }

@@ -41,7 +41,7 @@ namespace KnowledgeTestingService.API.Controllers
         public async Task<IActionResult> GetTestInfo(int id)
         {
             var result = await testService.GeTestInfo(id);
-            return responseComposer.ComposeForGetTestInfo(result);;
+            return responseComposer.ComposeForGetTestInfo(result);
         }
     }
 }

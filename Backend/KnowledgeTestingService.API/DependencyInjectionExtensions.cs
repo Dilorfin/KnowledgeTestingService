@@ -37,6 +37,7 @@ namespace KnowledgeTestingService.API
 
             services.AddScoped<ITestPassingResponseComposer, TestPassingResponseComposer>();
             services.AddScoped<ITestQueryingResponseComposer, TestQueryingResponseComposer>();
+            services.AddScoped<ITestManagementResponseComposer, TestManagementResponseComposer>();
 
             return services;
         }

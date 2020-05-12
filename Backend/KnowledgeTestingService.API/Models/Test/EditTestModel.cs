@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace KnowledgeTestingService.API.Models.Test
 {
-    public class FullTestModel
+    public class EditTestModel
     {
         public int Id { get; set; }
 
@@ -11,6 +11,6 @@ namespace KnowledgeTestingService.API.Models.Test
         public string Description { get; set; }
         public long Time { get; set; }
 
-        public IEnumerable<QuestionModel> Questions { get; set; }
+        public IEnumerable<EditQuestionModel> Questions { get; set; }
     }
 }

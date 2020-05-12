@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using KnowledgeTestingService.DAL.Entities;
+using System;
 
 namespace KnowledgeTestingService.BLL.Tests
 {
@@ -7,6 +8,11 @@ namespace KnowledgeTestingService.BLL.Tests
     {
         public TestEntityDtoMappingProfile()
         {
+            CreateMap<Test, EditTestDto>()
+                .ForPath(dest => dest.Time, src => src.MapFrom(t=> t.Time.TotalMilliseconds));
+            CreateMap<EditTestDto, Test>()
+                .ForPath(dest => dest.Time, src => src.MapFrom(t=> TimeSpan.FromMilliseconds(t.Time)));
+
             CreateMap<Test, FullTestDto>()
                 .ForPath(dest => dest.Time, src => src.MapFrom(t=> t.Time.TotalMilliseconds));
             CreateMap<Test, TestInfoDto>()

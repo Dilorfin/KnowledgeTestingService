@@ -1,9 +1,9 @@
-﻿using KnowledgeTestingService.API.Models.Test.Question;
+﻿using KnowledgeTestingService.BLL.Questions;
 using System.Collections.Generic;
 
-namespace KnowledgeTestingService.API.Models.Test
+namespace KnowledgeTestingService.BLL.Tests
 {
-    public class FullTestModel
+    public class EditTestDto
     {
         public int Id { get; set; }
 
@@ -11,6 +11,6 @@ namespace KnowledgeTestingService.API.Models.Test
         public string Description { get; set; }
         public long Time { get; set; }
 
-        public IEnumerable<QuestionModel> Questions { get; set; }
+        public IEnumerable<EditQuestionDto> Questions { get; set; }
     }
 }

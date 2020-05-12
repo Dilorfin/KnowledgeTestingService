@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using KnowledgeTestingService.API.Models.Test.Answer;
+using System.Collections.Generic;
 
-namespace KnowledgeTestingService.API.Models.Test
+namespace KnowledgeTestingService.API.Models.Test.Question
 {
     public class QuestionModel
     {
