@@ -2,8 +2,8 @@
 	<div class="col-sm-4">
 		<h3>Filtration</h3>
 		<div class="form-group">
-			<label for="name-filter">Name:</label>
-			<input type="text" class="form-control" id="name-filter" name="filter">
+			<label for="name-filter">Title:</label>
+			<input [(ngModel)]="filter" (input)="openPage(0)" type="text" class="form-control" id="name-filter" name="filter">
 		</div>
 		<hr class="d-sm-none">
 	</div>
@@ -24,7 +24,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr *ngFor="let testInfo of items" (click)="editTest(testInfo);">
+				<tr *ngFor="let testInfo of items">
 					<td>{{testInfo.title}}</td>
 					<td>{{testInfo.questionsNumber}}</td>
                     <td>{{testInfo.time | date:'HH:mm:ss':'UTC'}}</td>

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { TestInfo } from 'src/app/_models/tests/test-info';
 import { Pagination } from 'src/app/_helpers/pagination';
 import { TestsService } from './tests.service';
@@ -11,14 +10,11 @@ import { TestsService } from './tests.service';
 })
 export class TestsComponent extends Pagination<TestInfo> implements OnInit {
 	
-	constructor(private router: Router, private testsService : TestsService) {
-		super((offset, count) => testsService.getTestsInfo(offset, count));
+	constructor(testsService : TestsService) {
+		super((offset, count, filter) => testsService.getTestsInfo(offset, count, filter));
 	}
 
 	ngOnInit(): void {
 		this.openPage(0);
-	}
-	openTestInfo(test: TestInfo): void {
-		this.router.navigate([`passing/${test.id}`]);
 	}
 }

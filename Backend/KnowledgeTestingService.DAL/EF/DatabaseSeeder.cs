@@ -36,6 +36,12 @@ namespace KnowledgeTestingService.DAL.EF
                     Id = 3,
                     QuestionText = "Who wrote The Picture of Dorian Gray?",
                     TestId = 1
+                },
+                new Question
+                {
+                    Id = 4,
+                    QuestionText = "Which of these is a historical psychological novel in two volumes by Stendhal?",
+                    TestId = 1
                 }
             );
 
@@ -95,6 +101,27 @@ namespace KnowledgeTestingService.DAL.EF
                     AnswerText = "Oscar Mayer",
                     IsCorrect = false,
                     QuestionId = 3
+                },
+                new Answer
+                {
+                    Id = 9,
+                    AnswerText = "The Pink and the Green",
+                    IsCorrect = false,
+                    QuestionId = 4
+                },
+                new Answer
+                {
+                    Id = 10,
+                    AnswerText = "The Red and the Black",
+                    IsCorrect = false,
+                    QuestionId = 4
+                },
+                new Answer
+                {
+                    Id = 11,
+                    AnswerText = "The Black and The White",
+                    IsCorrect = false,
+                    QuestionId = 4
                 }
             );
         }

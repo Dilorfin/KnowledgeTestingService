@@ -10,15 +10,11 @@ import { TestsService } from 'src/app/user/tests/tests.service';
 })
 export class AdminTestsManagementComponent extends Pagination<TestInfo> implements OnInit {
 
-	constructor(private testsService: TestsService) {
-		super((offset, count) => testsService.getTestsInfo(offset, count));
+	constructor(testsService: TestsService) {
+		super((offset, count, filter) => testsService.getTestsInfo(offset, count, filter));
 	}
 
 	ngOnInit(): void {
 		this.openPage(0);
-	}
-
-	editTest(testInfo: TestInfo): void {
-
 	}
 }

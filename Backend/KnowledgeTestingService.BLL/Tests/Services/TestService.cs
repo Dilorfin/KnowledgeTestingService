@@ -20,15 +20,15 @@ namespace KnowledgeTestingService.BLL.Tests.Services
             this.mapper = mapper;
         }
 
-        public async Task<IEnumerable<TestInfoDto>> GeAllTestsInfo()
-        {
-            var tests = await dataStorage.Tests.GetAll();
-            return mapper.Map<IEnumerable<TestInfoDto>>(tests);
-        }
-
         public async Task<IEnumerable<TestInfoDto>> GeAllTestsInfo(int offset, int count)
         {
             var tests = await dataStorage.Tests.GetAll(offset, count);
+            return mapper.Map<IEnumerable<TestInfoDto>>(tests);
+        }
+
+        public async Task<IEnumerable<TestInfoDto>> GeAllTestsInfo(int offset, int count, string filter)
+        {
+            var tests = await dataStorage.Tests.GetAll(offset, count, filter);
             return mapper.Map<IEnumerable<TestInfoDto>>(tests);
         }
 
@@ -114,6 +114,11 @@ namespace KnowledgeTestingService.BLL.Tests.Services
         public async Task<long> GetTestsCount()
         {
             return await dataStorage.Tests.LongCountAsync();
+        }
+
+        public async Task<long> GetTestsCount(string filter)
+        {
+            return await dataStorage.Tests.LongCountAsync(filter);
         }
     }
 }

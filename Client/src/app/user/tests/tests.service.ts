@@ -11,10 +11,11 @@ import { environment } from 'src/environments/environment';
 export class TestsService {
 	constructor(private http: HttpClient) { }
 
-	getTestsInfo(offset: number, count: number): Observable<Items<TestInfo>> {
+	getTestsInfo(offset: number, count: number, filter: string): Observable<Items<TestInfo>> {
 		const params = new HttpParams()
 			.set('offset', offset.toString())
-			.set('count', count.toString());
+			.set('count', count.toString())
+			.set('filter', filter);
 		return this.http.get<Items<TestInfo>>(`${environment.apiUrl}/TestQuerying/GetAllTestsInfo`, { params });
 	}
 }

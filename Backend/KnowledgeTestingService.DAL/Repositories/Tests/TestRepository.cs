@@ -43,6 +43,17 @@ namespace KnowledgeTestingService.DAL.Repositories.Tests
                 .ToListAsync();
         }
 
+        public async Task<IEnumerable<Test>> GetAll(int offset, int count, string filter)
+        {
+            return await tests
+                .Include(t => t.Questions)
+                .ThenInclude(q => q.Answers)
+                .Where(t => t.Title.Contains(filter))
+                .Skip(offset)
+                .Take(count)
+                .ToListAsync();
+        }
+
         public override void Delete(Test entity)
         {
             tests.Remove(entity);
@@ -66,6 +77,12 @@ namespace KnowledgeTestingService.DAL.Repositories.Tests
         public async Task<long> LongCountAsync()
         {
             return await tests.LongCountAsync();
+        }
+        public async Task<long> LongCountAsync(string filter)
+        {
+            return await tests
+                .Where(t => t.Title.Contains(filter))
+                .LongCountAsync();
         }
     }
 }

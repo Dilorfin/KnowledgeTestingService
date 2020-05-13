@@ -2,7 +2,7 @@ import { Observable } from 'rxjs';
 
 export abstract class Pagination<TItem> {
 
-    constructor(private getItemsCallback: (offset: number, count: number) => Observable<Items<TItem>>) { }
+    constructor(private getItemsCallback: (offset: number, count: number, filter: string) => Observable<Items<TItem>>) { }
 
     protected _itemsCount: number = 0;
     protected _itemsPerPage: number = 15;
@@ -10,8 +10,10 @@ export abstract class Pagination<TItem> {
     protected _currentPage: number = 0;
     public items: TItem[] = [];
 
+    public filter: string = "";
+
     public openPage(page: number) {
-        this.getItemsCallback(this.getOffset(page), this.itemsPerPage)
+        this.getItemsCallback(this.getOffset(page), this.itemsPerPage, this.filter)
             .subscribe((items: Items<TItem>) => {
                 this.items = items.itemsModels;
                 this._itemsCount = items.itemsCount;
@@ -26,7 +28,7 @@ export abstract class Pagination<TItem> {
         return this._currentPage == 0;
     }
     public get isLastPage(): boolean {
-        return this._currentPage == this.pagesNumber - 1;
+        return this._currentPage >= this.pagesNumber - 1;
     }
 
     protected getOffset(page: number) : number {
