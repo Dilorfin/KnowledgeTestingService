@@ -26,8 +26,6 @@ namespace KnowledgeTestingService.API.Services.Tests
             {
                 case -1:
                     return new BadRequestObjectResult("Such test doesn't seem to exist.");
-                case -3:
-                    return new BadRequestObjectResult("Curiouser and curiouser! (more answers than needed)");
                 default:
                     return new BadRequestResult();
             }
