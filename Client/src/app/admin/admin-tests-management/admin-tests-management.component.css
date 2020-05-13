@@ -1,10 +1,6 @@
-.pagination {
-    --color: rgb(52, 58, 64);
-}
-
 .pagination>li>button {
     background-color: white;
-    color: var(--color);
+    color: var(--dark);
 }
 
 .pagination>li>button:focus,
@@ -16,8 +12,8 @@
 
 .pagination>.active>button {
     color: white;
-    background-color: var(--color) !Important;
-    border: solid 1px var(--color) !Important;
+    background-color: var(--dark) !Important;
+    border: solid 1px var(--dark) !Important;
 }
 
 .pagination>.active>button:hover {
