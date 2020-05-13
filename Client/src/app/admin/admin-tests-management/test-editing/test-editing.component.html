@@ -21,7 +21,10 @@
             </tbody>
         </table>
     </div>
-    <div class="col-sm-8">
+    <div class="col-sm-8" *ngIf="!test">
+        Loading test... <span class="spinner-border spinner-border-sm text-dark"></span>
+    </div>
+    <div class="col-sm-8" *ngIf="test">
         <div class="alert alert-warning alert-dismissible fade show">
             <button type="button" class="close" data-dismiss="alert"><i class="fas fa-times"></i></button>
             <strong>Warning!</strong> If you leave without saving, the changes will be lost.
