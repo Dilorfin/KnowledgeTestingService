@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TestPassingService } from '../test-passing.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Question, FullTest } from 'src/app/_models/tests/full-test';
+import { Observable } from 'rxjs';
 
 @Component({
 	selector: 'app-questions',
@@ -17,10 +18,16 @@ export class QuestionsComponent implements OnInit {
 		if (!this.testPassingService.isPassing()) {
 			this.router.navigate(["../start"], { relativeTo: this.route });
 		}
-	}
-	public questionIndex:number = 0;
 
-	public get test():FullTest{
+		this.testPassingService.setOnFinish((obs : Observable<number>)=>{
+			obs.subscribe((resultId: number) => {
+					this.router.navigate(["../end"], { relativeTo: this.route, queryParams: { 'id': resultId } });
+				});
+		});
+	}
+	public questionIndex: number = 0;
+
+	public get test(): FullTest {
 		return this.testPassingService.test;
 	}
 	public get question(): Question {
@@ -30,8 +37,11 @@ export class QuestionsComponent implements OnInit {
 		return null;
 	}
 
-	public get checkedAnswer():number{
-		return this.testPassingService.getCheckedAnswer(this.question.id);
+	public get checkedAnswer(): number {
+		if (this.testPassingService.test) {
+			return this.testPassingService.getCheckedAnswer(this.question.id);
+		}
+		return null;
 	}
 
 	public nextQuestion() {
@@ -42,7 +52,6 @@ export class QuestionsComponent implements OnInit {
 		this.questionIndex--;
 	}
 
-
 	public get timeLeft(): number {
 		return this.testPassingService.timeLeft;
 	}
@@ -52,11 +61,6 @@ export class QuestionsComponent implements OnInit {
 	}
 
 	finishTest(): void {
-		this.testPassingService.finishTest().subscribe(
-			(resultId: number) => {
-				this.router.navigate(["../end"], { relativeTo: this.route, queryParams:{'id':resultId} });
-			}
-		);
-
+		this.testPassingService.finishTest();
 	}
 }

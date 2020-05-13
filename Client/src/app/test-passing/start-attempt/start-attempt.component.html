@@ -1,8 +1,21 @@
-<p>start-attempt works!</p>
-<div *ngIf="test">
-    <h4>{{test.title}}</h4>
-    <h4>{{test.description}}</h4>
-    <h4>{{test.time | date:"HH:mm:ss":"UTC"}}</h4>
-</div>
+<nav class="navbar bg-dark navbar-dark mb-4">
+    <h5 *ngIf="test" class="navbar-text m-0 ml-lg-5">
+        {{test.title}}
+    </h5>
+</nav>
+<div class="container-lg">
+    <div *ngIf="test">
+        <h5 class="font-weight-bolder">Description:</h5>
+        <h5>{{test.description}}</h5>
+        
+        <h5 class="mt-3">
+            <span class="font-weight-bolder">Time to pass the test: </span>
+            {{test.time | date:"HH:mm:ss":"UTC"}}
+        </h5>
+    </div>
 
-<button (click)="startTest()">Start</button>
+    <div class="my-3">
+        <button class="btn btn-outline-success mr-3" (click)="startTest()">Start</button>
+        <button class="btn btn-outline-danger" routerLink="/tests">Cancel</button>
+    </div>
+</div>

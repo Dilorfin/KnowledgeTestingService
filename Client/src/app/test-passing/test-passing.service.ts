@@ -8,11 +8,17 @@ import { TestResult } from '../_models/tests/test-result';
 
 @Injectable()
 export class TestPassingService {
+	
+	private onFinish : (obs : Observable<number>) => void;
+	public setOnFinish(func : (obs : Observable<number>) => void){
+		this.onFinish = func;
+	}
 
 	constructor(private http: HttpClient) { }
-
+	
 	private interval;
-
+	private userAnswers: UserAnswers;
+	
 	private _isPassing: boolean = false;
 
 	public isPassing(): boolean {
@@ -29,10 +35,12 @@ export class TestPassingService {
 		return this._test;
 	}
 
-	public loadTest(testId: number | string): void {
-		this.getFullTest(testId).subscribe(
+	public loadTest(testId: number | string): Observable<FullTest> {
+		let obs = this.getFullTest(testId);
+		obs.subscribe(
 			(test: FullTest) => this._test = test
 		);
+		return obs;
 	}
 	public startTest(): void {
 		this._isPassing = true;
@@ -45,6 +53,7 @@ export class TestPassingService {
 			}
 		}, 1000);
 
+		this.userAnswers = new UserAnswers;
 		this.userAnswers.testId = this.test.id;
 		this.userAnswers.answers = [];
 	}
@@ -65,12 +74,15 @@ export class TestPassingService {
 		}
 		return this.userAnswers.answers[index].Value;
 	}
-	private userAnswers: UserAnswers = new UserAnswers;
 
 	public finishTest(): Observable<number> {
 		this._isPassing = false;
 		clearInterval(this.interval);
-		return this.sendResults(this.userAnswers);
+		let obs = this.sendResults(this.userAnswers);
+		if(this.onFinish){
+			this.onFinish(obs);
+		}
+		return obs;
 	}
 
 	private getFullTest(testId: number | string): Observable<FullTest> {

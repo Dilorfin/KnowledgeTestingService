@@ -1,20 +1,37 @@
-<p>{{timeLeft | date:"HH:mm:ss":"UTC"}}</p>
+<nav *ngIf="test" class="navbar bg-dark navbar-dark mb-4">
+    <h5 class="navbar-text m-0 ml-lg-5">
+        {{test.title}}
+    </h5>
+    <h5 class="navbar-text m-0 mr-lg-5 text-white">
+        <i class="far fa-clock fa-sm"></i>
+        {{timeLeft | date:"HH:mm:ss":"UTC"}}
+    </h5>
+</nav>
 
-<div *ngIf="question">
+<div class="container-lg" *ngIf="question">
     <h4>{{question.questionText}}</h4>
-
-    <div class="form-check" *ngFor="let answer of question.answers">
-        <input class="form-check-input" type="radio" name="answers" [attr.id]="'button'+answer.id"
-        [checked]="answer.id == checkedAnswer"
-            (click)="setAnswer(answer.id);">
-        <label class="form-check-label" [attr.for]="'button'+answer.id">
-            {{answer.answerText}}
-        </label>
+    
+    <div class="my-3 ml-2">
+        <div class="custom-control custom-radio" *ngFor="let answer of question.answers; index as i">
+            <input type="radio" class="custom-control-input" name="answers" [attr.id]="'button'+i"
+                [checked]="answer.id == checkedAnswer" (click)="setAnswer(answer.id);">
+            <label class="custom-control-label" [attr.for]="'button'+ i">
+                {{answer.answerText}}
+            </label>
+        </div>
     </div>
 
-    <button (click)="previousQuestion();" *ngIf="questionIndex > 0">Previous question</button>
-    <button (click)="nextQuestion();" *ngIf="questionIndex+1 < test.questions.length">Next question</button>
+    <div>
+        <button class="btn btn-outline-success mr-3" (click)="nextQuestion();"
+            *ngIf="questionIndex < test.questions.length-1">
+            Next question
+        </button>
+        <button class="btn btn-outline-secondary mr-3" (click)="previousQuestion();" *ngIf="questionIndex > 0">
+            Previous question
+        </button>
+        <button class="btn btn-outline-primary" (click)="finishTest();"
+            *ngIf="questionIndex >= test.questions.length-1">
+            Finish test
+        </button>
+    </div>
 </div>
-
-
-<button (click)="finishTest();">Finish</button>
