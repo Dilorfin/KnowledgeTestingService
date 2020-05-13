@@ -113,7 +113,7 @@ namespace KnowledgeTestingService.DAL.EF
                 {
                     Id = 10,
                     AnswerText = "The Red and the Black",
-                    IsCorrect = false,
+                    IsCorrect = true,
                     QuestionId = 4
                 },
                 new Answer
