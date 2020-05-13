@@ -1,0 +1,13 @@
+<div *ngIf="!testResult">
+    Loading result... <span class="spinner-border spinner-border-sm text-dark"></span>
+</div>
+<div *ngIf="testResult">
+    <h4>{{testResult.testTitle}}</h4>
+    <div class="progress mx-auto w-50" style="height: 40px;">
+        <!--bg-success-->
+        <div class="progress-bar text-body font-weight-bold progress-bar-striped" [style.background-color]="progressBarColor()" [style.width]="testResult.result + '%'">
+                {{testResult.result | number:'.0-2'}}%
+        </div>
+    </div>
+</div>
+<button class="btn btn-outline-dark" routerLink="/tests">Go home</button>

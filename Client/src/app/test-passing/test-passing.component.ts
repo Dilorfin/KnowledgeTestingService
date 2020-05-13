@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { TestPassingService } from './test-passing.service';
 
 @Component({
@@ -9,7 +9,7 @@ import { TestPassingService } from './test-passing.service';
 })
 export class TestPassingComponent implements OnInit {
 
-	constructor(private router: Router, private route: ActivatedRoute, private testPassingService: TestPassingService) {
+	constructor(route: ActivatedRoute, testPassingService: TestPassingService) {
 		testPassingService.loadTest(route.snapshot.params['testId']);
 	}
 

@@ -1,4 +1,4 @@
 export class TestResult {
-    questionsNumber: number;
+    testTitle: string;
     result: number;
 }

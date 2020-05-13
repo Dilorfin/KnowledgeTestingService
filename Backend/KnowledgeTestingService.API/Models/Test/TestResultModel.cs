@@ -2,7 +2,7 @@
 {
     public class TestResultModel
     {
-        public int QuestionsNumber { get; set; }
+        public string TestTitle { get; set; }
 
         public double Result { get; set; }
     }

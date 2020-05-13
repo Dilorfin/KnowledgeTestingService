@@ -8,7 +8,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppComponent } from './app.component';
 import { TestsComponent } from './user/tests/tests.component';
 import { ProfileComponent } from './user/profile/profile.component';
-import { StatisticComponent } from './user/statistic/statistic.component';
+import { HistoryComponent } from './user/history/history.component';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { AdminComponent } from './admin/admin.component';
 import { AdminStatisticComponent } from './admin/admin-statistic/admin-statistic.component';
@@ -24,7 +24,7 @@ import { AuthGuard } from './_helpers/auth.guard';
 import { AuthService } from './auth/auth.service';
 import { TestPassingComponent } from './test-passing/test-passing.component';
 import { StartAttemptComponent } from './test-passing/start-attempt/start-attempt.component';
-import { EndAttemptComponent } from './test-passing/end-attempt/end-attempt.component';
+import { TestResultComponent } from './user/history/test-result/test-result.component';
 import { QuestionsComponent } from './test-passing/questions/questions.component';
 import { TestPassingService } from './test-passing/test-passing.service';
 import { TestEditingComponent } from './admin/admin-tests-management/test-editing/test-editing.component';
@@ -42,7 +42,8 @@ const userRoutes: Routes = [
 	{ path: '', redirectTo: 'tests', pathMatch: 'full' },
 	{ path: 'tests', component: TestsComponent },
 	{ path: 'profile', component: ProfileComponent },
-	{ path: 'statistic', component: StatisticComponent }
+	{ path: 'history', component: HistoryComponent },
+	{ path: 'result/:resultId', component: TestResultComponent }
 ]
 
 const authRoutes: Routes = [
@@ -53,8 +54,7 @@ const authRoutes: Routes = [
 const testPassingRoutes: Routes = [
 	{ path: '', redirectTo: 'start', pathMatch: 'full' },
 	{ path: 'start', component: StartAttemptComponent },
-	{ path: 'questions',  component: QuestionsComponent },
-	{ path: 'end', component: EndAttemptComponent }
+	{ path: 'questions',  component: QuestionsComponent }
 ]
 
 const appRouts: Routes = [
@@ -75,7 +75,7 @@ const appRouts: Routes = [
 		AppComponent,
 		TestsComponent,
 		ProfileComponent,
-		StatisticComponent,
+		HistoryComponent,
 		NotfoundComponent,
 		AdminComponent,
 		AdminStatisticComponent,
@@ -87,7 +87,7 @@ const appRouts: Routes = [
 		AuthSignUpComponent,
 		TestPassingComponent,
 		StartAttemptComponent,
-		EndAttemptComponent,
+		TestResultComponent,
 		QuestionsComponent,
 		TestEditingComponent
 	],

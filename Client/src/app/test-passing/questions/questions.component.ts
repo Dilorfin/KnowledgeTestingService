@@ -21,7 +21,7 @@ export class QuestionsComponent implements OnInit {
 
 		this.testPassingService.setOnFinish((obs : Observable<number>)=>{
 			obs.subscribe((resultId: number) => {
-					this.router.navigate(["../end"], { relativeTo: this.route, queryParams: { 'id': resultId } });
+					this.router.navigate([`result/${resultId}`] );
 				});
 		});
 	}

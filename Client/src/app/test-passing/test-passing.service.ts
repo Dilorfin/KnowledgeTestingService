@@ -3,8 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { FullTest } from '../_models/tests/full-test';
 import { environment } from 'src/environments/environment';
-import { UserAnswers, UsersAnswer } from '../_models/tests/user-answers';
-import { TestResult } from '../_models/tests/test-result';
+import { UserAnswers } from '../_models/tests/user-answers';
 
 @Injectable()
 export class TestPassingService {
@@ -91,9 +90,5 @@ export class TestPassingService {
 
 	private sendResults(userAnswers: UserAnswers): Observable<number> {
 		return this.http.post<number>(`${environment.apiUrl}/TestPassing/CheckUserAnswers`, userAnswers);
-	}
-
-	public getTestResult(resultId : number) : Observable<TestResult>{
-		return this.http.get<TestResult>(`${environment.apiUrl}/TestPassing/GetResult/${resultId}`)
 	}
 }
