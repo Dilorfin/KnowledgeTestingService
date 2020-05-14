@@ -11,6 +11,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace KnowledgeTestingService.API
 {
@@ -35,7 +37,7 @@ namespace KnowledgeTestingService.API
             services.AddScoped<ITestService, TestService>();
             services.AddScoped<ITestResultService, TestResultService>();
 
-            services.AddScoped<ITestPassingResponseComposer, TestPassingResponseComposer>();
+            services.AddScoped<ITestResultResponseComposer, TestResultResponseComposer>();
             services.AddScoped<ITestQueryingResponseComposer, TestQueryingResponseComposer>();
             services.AddScoped<ITestManagementResponseComposer, TestManagementResponseComposer>();
 
@@ -43,7 +45,7 @@ namespace KnowledgeTestingService.API
         }
 
         public static IServiceCollection ResolveIdentityDependencies(this IServiceCollection services,
-            string connectionString, string jwtSecret)
+            string connectionString, string jwtSigningKey, string jwtEncryptionKey)
         {
             services.AddDbContext<IdentityContext>(options =>
                 options.UseSqlServer(connectionString));
@@ -54,7 +56,14 @@ namespace KnowledgeTestingService.API
                 })
                 .AddEntityFrameworkStores<IdentityContext>();
 
-            var key = System.Text.Encoding.ASCII.GetBytes(jwtSecret);
+            var signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwtSigningKey));
+
+            SymmetricSecurityKey decryptionKey;
+            using (var sha256 = SHA256.Create())
+            {
+                var computeHash = sha256.ComputeHash(Encoding.Default.GetBytes(jwtEncryptionKey));
+                decryptionKey = new SymmetricSecurityKey(computeHash);
+            }
             services.AddAuthentication(options =>
                 {
                     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -67,7 +76,8 @@ namespace KnowledgeTestingService.API
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
                         ValidateIssuerSigningKey = true,
-                        IssuerSigningKey = new SymmetricSecurityKey(key),
+                        IssuerSigningKey = signingKey,
+                        TokenDecryptionKey = decryptionKey,
                         RequireExpirationTime = true,
                         ValidateLifetime = true,
                         ValidateAudience = false,

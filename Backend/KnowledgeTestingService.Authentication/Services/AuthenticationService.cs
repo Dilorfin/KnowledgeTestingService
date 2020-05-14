@@ -2,11 +2,13 @@
 using KnowledgeTestingService.Common;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,15 +18,19 @@ namespace KnowledgeTestingService.Authentication.Services
     {
         private readonly SignInManager<User> signInManager;
         private readonly UserManager<User> userManager;
+        private readonly ILogger<AuthenticationService> logger;
 
-        private string JwtSecret { get; }
+        private string JwtSigningKey { get; }
+        private string JwtEncryptionKey { get; }
 
         public AuthenticationService(SignInManager<User> signInManager, UserManager<User> userManager,
-            IConfiguration configuration)
+            IConfiguration configuration, ILogger<AuthenticationService> logger)
         {
             this.signInManager = signInManager;
             this.userManager = userManager;
-            this.JwtSecret = configuration["JWT:Secret"];
+            this.logger = logger;
+            this.JwtSigningKey = configuration["JWT:SigningKey"];
+            this.JwtEncryptionKey = configuration["JWT:EncryptionKey"];
         }
 
         public async Task<Result<TokenDto>> LogIn(UserLogInDto userLogInDto)
@@ -48,8 +54,17 @@ namespace KnowledgeTestingService.Authentication.Services
             }
 
             var roles = await userManager.GetRolesAsync(user);
+            
 
-            var key = Encoding.ASCII.GetBytes(JwtSecret);
+            var signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(JwtSigningKey));
+            SymmetricSecurityKey encryptionKey;
+            using (var sha256 = SHA256.Create())
+            {
+                var computeHash = sha256.ComputeHash(Encoding.Default.GetBytes(JwtEncryptionKey));
+                logger.LogInformation(computeHash.Length.ToString());
+                encryptionKey = new SymmetricSecurityKey(computeHash);
+            }
+
             var tokenHandler = new JwtSecurityTokenHandler();
 
             var claimsIdentity = new ClaimsIdentity();
@@ -59,11 +74,16 @@ namespace KnowledgeTestingService.Authentication.Services
                 claimsIdentity.AddClaim(new Claim(ClaimTypes.Role, role));
             }
 
+            var encryptingCredentials = new EncryptingCredentials(encryptionKey, SecurityAlgorithms.Aes256KW,
+                SecurityAlgorithms.Aes256CbcHmacSha512);
+            var signingCredentials = new SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256Signature);
+
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = claimsIdentity,
                 Expires = DateTime.UtcNow.AddHours(7),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+                SigningCredentials = signingCredentials,
+                EncryptingCredentials = encryptingCredentials
             };
 
             var token = tokenHandler.CreateJwtSecurityToken(tokenDescriptor);

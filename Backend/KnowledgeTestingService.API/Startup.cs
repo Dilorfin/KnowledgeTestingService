@@ -25,7 +25,8 @@ namespace KnowledgeTestingService.API
             services.ResolveDalDependencies(Configuration.GetConnectionString("KnowledgeTestingService"));
             services.ResolveIdentityDependencies(
                 Configuration.GetConnectionString("KnowledgeTestingAuth"),
-                Configuration["JWT:Secret"]
+                Configuration["JWT:SigningKey"],
+                Configuration["JWT:EncryptionKey"]
             );
             services.ResolveServicesDependencies();
 
