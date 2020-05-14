@@ -44,8 +44,7 @@ namespace KnowledgeTestingService.API.Controllers
                 allTestsInfo = await testService.GeAllTestsInfo(offset, count, filter);
             }
 
-            var testModels = mapper.Map<IEnumerable<TestInfoModel>>(allTestsInfo);
-            return responseComposer.ComposeForGetAllTestsInfo(testsCount, testModels);
+            return responseComposer.ComposeForGetAllTestsInfo(testsCount, allTestsInfo);
         }
 
         [HttpGet("GetTestInfo/{id}")]
@@ -53,6 +52,13 @@ namespace KnowledgeTestingService.API.Controllers
         {
             var result = await testService.GeTestInfo(id);
             return responseComposer.ComposeForGetTestInfo(result);
+        }
+
+        [HttpGet("GetFullTest/{id}")]
+        public async Task<IActionResult> GetFullTest(int id)
+        {
+            var result = await testService.GetFullTest(id);
+            return responseComposer.ComposeForGetFullTest(result);
         }
     }
 }

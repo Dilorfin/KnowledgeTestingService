@@ -1,16 +1,17 @@
 ﻿using AutoMapper;
 using KnowledgeTestingService.API.Models.Test;
-using KnowledgeTestingService.BLL.Tests;
+using KnowledgeTestingService.BLL.TestResults;
 using KnowledgeTestingService.Common;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace KnowledgeTestingService.API.Services.Tests
 {
-    public class TestPassingResponseComposer : ITestPassingResponseComposer
+    public class TestResultResponseComposer : ITestResultResponseComposer
     {
         private readonly IMapper mapper;
 
-        public TestPassingResponseComposer(IMapper mapper)
+        public TestResultResponseComposer(IMapper mapper)
         {
             this.mapper = mapper;
         }
@@ -31,19 +32,14 @@ namespace KnowledgeTestingService.API.Services.Tests
             }
         }
 
-        public IActionResult ComposeForGetFullTest(Result<FullTestDto> result)
+        public IActionResult ComposeForGetAllUsersResults(long userResultsCount, 
+            IEnumerable<TestResultDto> testResultDtos)
         {
-            if (result.Success)
+            return new OkObjectResult(new
             {
-                return new OkObjectResult(mapper.Map<FullTestModel>(result.Value));
-            }
-
-            if (result.Status == -1)
-            {
-                return new BadRequestObjectResult("Such test doesn't seem to exist.");
-            }
-
-            return new BadRequestResult();
+                ItemsCount = userResultsCount,
+                ItemsModels =  mapper.Map<IEnumerable<TestResultModel>>(testResultDtos)
+            });
         }
     }
 }

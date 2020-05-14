@@ -17,12 +17,12 @@ namespace KnowledgeTestingService.API.Services.Tests
         }
 
         public IActionResult ComposeForGetAllTestsInfo(long generalModelsCount,
-            IEnumerable<TestInfoModel> testsInfoModels)
+            IEnumerable<TestInfoDto> testsInfoModels)
         {
             return new OkObjectResult(new
             {
                 ItemsCount = generalModelsCount,
-                ItemsModels = testsInfoModels
+                ItemsModels =  mapper.Map<IEnumerable<TestInfoModel>>(testsInfoModels)
             });
         }
 
@@ -31,6 +31,21 @@ namespace KnowledgeTestingService.API.Services.Tests
             if (result.Success)
             {
                 return new OkObjectResult(mapper.Map<TestInfoModel>(result.Value));
+            }
+
+            if (result.Status == -1)
+            {
+                return new BadRequestObjectResult("Such test doesn't seem to exist.");
+            }
+
+            return new BadRequestResult();
+        }
+
+        public IActionResult ComposeForGetFullTest(Result<FullTestDto> result)
+        {
+            if (result.Success)
+            {
+                return new OkObjectResult(mapper.Map<FullTestModel>(result.Value));
             }
 
             if (result.Status == -1)
