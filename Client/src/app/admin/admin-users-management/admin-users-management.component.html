@@ -8,7 +8,6 @@
 					<th>UserName</th>
                     <th>Email</th>
                     <th>Role</th>
-                    <th>Ban end date</th>
                     <th>Ban</th>
 				</tr>
 			</thead>
@@ -19,9 +18,6 @@
 					<td>{{user.email}}</td>
 					<td>{{user.isAdmin ? "admin" : "user"}}</td>
 					<td>
-                        <span *ngIf="user.lockoutEnd">{{user.lockoutEnd | date}}</span>
-                    </td>
-                    <td>
                         <button class="btn btn-sm btn-outline-info btn-block" *ngIf="user.lockoutEnd" (click)="unban(user.id);">UNBAN!</button>
                         <button class="btn btn-sm btn-outline-danger btn-block" *ngIf="!user.lockoutEnd" (click)="ban(user.id);">BAN!</button>
                     </td>
