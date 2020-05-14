@@ -1,1 +1,42 @@
-<p>history works!</p>
+<div class="row">
+	<div class="col-sm">
+		<h2>History</h2>
+		<table class="table table-hover">
+			<thead class="thead-light">
+				<tr>
+					<th>Test title</th>
+                    <th>Result</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr *ngFor="let result of items" [routerLink]="'/result/'+result.id">
+					<td>{{result.testTitle}}</td>
+					<td>{{result.result|number:'.0-2'}}%</td>
+				</tr>
+			</tbody>
+		</table>
+		<ul class="pagination mw-100 flex-wrap justify-content-center">
+			<li class="page-item" [class.disabled]="isFirstPage">
+                <button class="page-link" (click)="openPage(currentPage-1)"><i class="fas fa-arrow-left"></i></button>
+            </li>
+            <li class="page-item" *ngIf="currentPage-2 >= 0">
+                <button class="page-link" (click)="openPage(currentPage-2)">{{currentPage-1}}</button>
+            </li>
+            <li class="page-item" *ngIf="currentPage-1 >= 0">
+                <button class="page-link" (click)="openPage(currentPage-1)">{{currentPage}}</button>
+            </li>
+            <li class="page-item active disabled">
+                <button class="page-link">{{currentPage+1}}</button>
+            </li>
+            <li class="page-item" *ngIf="currentPage+1 < pagesNumber">
+                <button class="page-link" (click)="openPage(currentPage+1)">{{currentPage+2}}</button>
+            </li>
+            <li class="page-item" *ngIf="currentPage+2 < pagesNumber">
+                <button class="page-link" (click)="openPage(currentPage+2)">{{currentPage+3}}</button>
+            </li>
+            <li class="page-item" [class.disabled]="isLastPage">
+                <button class="page-link" (click)="openPage(currentPage+1)"><i class="fas fa-arrow-right"></i></button>
+            </li>
+		</ul>
+	</div>
+</div>
