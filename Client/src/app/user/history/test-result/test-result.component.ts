@@ -20,10 +20,10 @@ export class TestResultComponent implements OnInit {
 	}
 
 	progressBarColor():string{
-		if(this.testResult.result>75){
+		if(this.testResult.result >= 75){
 			return 'var(--success)';
 		}
-		if(this.testResult.result>50){
+		if(this.testResult.result >= 50){
 			return 'var(--warning)';
 		}
 		return 'var(--danger)';

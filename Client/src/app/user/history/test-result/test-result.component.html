@@ -3,11 +3,17 @@
 </div>
 <div *ngIf="testResult">
     <h4>{{testResult.testTitle}}</h4>
-    <div class="progress mx-auto w-50" style="height: 40px;">
-        <!--bg-success-->
-        <div class="progress-bar text-body font-weight-bold progress-bar-striped" [style.background-color]="progressBarColor()" [style.width]="testResult.result + '%'">
-                {{testResult.result | number:'.0-2'}}%
+
+    <div class="row">
+        <div class="col-10 col-sm-6">
+			<div class="progress" style="height: 40px;">
+                <div class="progress-bar text-body progress-bar-striped" [style.background-color]="progressBarColor()"
+					[style.width]="testResult.result + '%'"></div>
+			</div>
+		</div>
+		<div class="col-1 col-sm-6 pl-0 pl-md-1">
+			<h5 class="mt-1 mb-0">{{testResult.result | number:'.0-2'}}%</h5>
         </div>
     </div>
 </div>
-<button class="btn btn-outline-dark" routerLink="/tests">Go home</button>
+<button class="btn btn-outline-dark mt-3" routerLink="/history">Go to history</button>
