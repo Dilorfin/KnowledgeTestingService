@@ -12,6 +12,6 @@ export class TestResultService {
 	constructor(private http: HttpClient) { }
 
 	public getTestResult(resultId: number): Observable<TestResult> {
-		return this.http.get<TestResult>(`${environment.apiUrl}/TestPassing/GetResult/${resultId}`)
+		return this.http.get<TestResult>(`${environment.apiUrl}/TestResult/GetResult/${resultId}`)
 	}
 }

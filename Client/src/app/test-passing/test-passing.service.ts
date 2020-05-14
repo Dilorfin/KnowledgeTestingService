@@ -85,10 +85,10 @@ export class TestPassingService {
 	}
 
 	private getFullTest(testId: number | string): Observable<FullTest> {
-		return this.http.get<FullTest>(`${environment.apiUrl}/TestPassing/GetFullTest/${testId}`);
+		return this.http.get<FullTest>(`${environment.apiUrl}/TestQuerying/GetFullTest/${testId}`);
 	}
 
 	private sendResults(userAnswers: UserAnswers): Observable<number> {
-		return this.http.post<number>(`${environment.apiUrl}/TestPassing/CheckUserAnswers`, userAnswers);
+		return this.http.post<number>(`${environment.apiUrl}/TestResult/CheckUserAnswers`, userAnswers);
 	}
 }
