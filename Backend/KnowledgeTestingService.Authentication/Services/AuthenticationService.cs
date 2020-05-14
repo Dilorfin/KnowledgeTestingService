@@ -38,6 +38,7 @@ namespace KnowledgeTestingService.Authentication.Services
             var user = await userManager.FindByNameAsync(userLogInDto.UserName);
             if (user is null)
             {
+                logger.LogInformation($"Unknown username: {userLogInDto.UserName}");
                 return Result.Fail<TokenDto>(-1);
             }
 
@@ -114,7 +115,7 @@ namespace KnowledgeTestingService.Authentication.Services
             {
                 return result.Errors;
             }
-
+            logger.LogInformation($"New user registered: {user.UserName}");
             return new List<IdentityError>();
         }
     }
