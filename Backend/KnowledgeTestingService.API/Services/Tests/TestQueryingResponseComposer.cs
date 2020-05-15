@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using KnowledgeTestingService.API.Models.Test;
+using KnowledgeTestingService.API.Models.TestQuerying;
 using KnowledgeTestingService.BLL.Tests;
 using KnowledgeTestingService.Common;
 using Microsoft.AspNetCore.Mvc;

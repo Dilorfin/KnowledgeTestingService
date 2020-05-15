@@ -1,4 +1,4 @@
-﻿namespace KnowledgeTestingService.API.Models.Test.Answer
+﻿namespace KnowledgeTestingService.API.Models.TestQuerying
 {
     public class AnswerModel
     {

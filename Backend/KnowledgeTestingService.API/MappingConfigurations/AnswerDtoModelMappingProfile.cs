@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
-using KnowledgeTestingService.API.Models.Test.Answer;
+using KnowledgeTestingService.API.Models.TestManagement;
+using KnowledgeTestingService.API.Models.TestQuerying;
 using KnowledgeTestingService.BLL.Answers;
 
 namespace KnowledgeTestingService.API.MappingConfigurations

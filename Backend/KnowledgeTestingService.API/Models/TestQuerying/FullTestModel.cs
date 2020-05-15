@@ -1,7 +1,6 @@
-﻿using KnowledgeTestingService.API.Models.Test.Question;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace KnowledgeTestingService.API.Models.Test
+namespace KnowledgeTestingService.API.Models.TestQuerying
 {
     public class FullTestModel
     {

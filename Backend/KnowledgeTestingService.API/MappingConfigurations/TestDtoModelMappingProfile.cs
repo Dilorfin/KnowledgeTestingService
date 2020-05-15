@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
-using KnowledgeTestingService.API.Models.Test;
+using KnowledgeTestingService.API.Models.TestManagement;
+using KnowledgeTestingService.API.Models.TestQuerying;
+using KnowledgeTestingService.API.Models.TestResult;
 using KnowledgeTestingService.BLL.TestResults;
 using KnowledgeTestingService.BLL.Tests;
 

@@ -1,7 +1,6 @@
-﻿using KnowledgeTestingService.API.Models.Test.Answer;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace KnowledgeTestingService.API.Models.Test.Question
+namespace KnowledgeTestingService.API.Models.TestManagement
 {
     public class EditQuestionModel
     {

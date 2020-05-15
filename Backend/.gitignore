@@ -41,6 +41,8 @@ Generated\ Files/
 
 # MSTest test Results
 [Tt]est[Rr]esult*/
+!KnowledgeTestingService.API/Models/TestResult/
+!KnowledgeTestingService.BLL/TestResults/
 [Bb]uild[Ll]og.*
 
 # NUnit

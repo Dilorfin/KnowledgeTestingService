@@ -1,6 +1,6 @@
-﻿namespace KnowledgeTestingService.API.Models.Test
+﻿namespace KnowledgeTestingService.BLL.TestResults
 {
-    public class TestResultModel
+    public class TestResultDto
     {
         public int Id { get; set; }
 

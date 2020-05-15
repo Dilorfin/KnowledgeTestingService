@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace KnowledgeTestingService.API.Models.Test
+namespace KnowledgeTestingService.API.Models.TestResult
 {
     public class UserAnswersModel
     {
