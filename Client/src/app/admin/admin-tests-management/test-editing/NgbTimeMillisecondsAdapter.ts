@@ -6,20 +6,21 @@ export class NgbTimeMillisecondsAdapter extends NgbTimeAdapter<number> {
 
 	fromModel(value: number | null): NgbTimeStruct | null {
 		if (!value) {
-			return null;
+			return { hour: 0, minute: 0, second: 0 };
 		}
 		let _time = new Date(value);
-			return {
-				hour: _time.getUTCHours(),
-				minute: _time.getUTCMinutes(),
-				second: _time.getUTCSeconds()
-			};
+		return {
+			hour: _time.getUTCHours(),
+			minute: _time.getUTCMinutes(),
+			second: _time.getUTCSeconds()
+		};
 	}
 
 	toModel(time: NgbTimeStruct | null): number | null {
-		if(!time){
+		if (!time) {
 			return null;
 		}
+
 		let _time = new Date(0);
 		_time.setUTCHours(time.hour);
 		_time.setUTCMinutes(time.minute);
