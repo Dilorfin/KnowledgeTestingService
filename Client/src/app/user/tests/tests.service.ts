@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { TestInfo } from 'src/app/_models/tests/test-info';
+import { TestInfo } from 'src/app/_models/test-querying/test-info';
 import { Items } from 'src/app/_helpers/pagination';
 import { environment } from 'src/environments/environment';
 

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Pagination } from 'src/app/_helpers/pagination';
-import { TestInfo } from 'src/app/_models/tests/test-info';
+import { TestInfo } from 'src/app/_models/test-querying/test-info';
 import { TestsService } from 'src/app/user/tests/tests.service';
 
 @Component({

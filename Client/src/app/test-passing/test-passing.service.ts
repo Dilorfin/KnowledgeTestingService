@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { FullTest } from '../_models/tests/full-test';
+import { FullTest } from '../_models/test-querying/full-test';
 import { environment } from 'src/environments/environment';
-import { UserAnswers } from '../_models/tests/user-answers';
+import { UserAnswers } from '../_models/test-result/user-answers';
 
 @Injectable()
 export class TestPassingService {

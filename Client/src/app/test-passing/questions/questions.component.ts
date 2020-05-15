@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TestPassingService } from '../test-passing.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Question, FullTest } from 'src/app/_models/tests/full-test';
+import { Question, FullTest } from 'src/app/_models/test-querying/full-test';
 import { Observable } from 'rxjs';
 
 @Component({

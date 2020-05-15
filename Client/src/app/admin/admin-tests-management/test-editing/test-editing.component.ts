@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TestEditingService } from './test-editing.service';
 import { NgbTimeMillisecondsAdapter } from './NgbTimeMillisecondsAdapter';
 import { NgbTimeAdapter } from '@ng-bootstrap/ng-bootstrap';
-import { EditTest, EditQuestion, EditAnswer } from 'src/app/_models/tests/edit-test';
+import { EditTest, EditQuestion, EditAnswer } from 'src/app/_models/test-management/edit-test';
 import { Observable } from 'rxjs';
 
 @Component({

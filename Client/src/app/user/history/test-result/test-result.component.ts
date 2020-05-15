@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TestResultService } from './test-result.service';
-import { TestResult } from 'src/app/_models/tests/test-result';
+import { TestResult } from 'src/app/_models/test-result/test-result';
 
 @Component({
 	selector: 'app-test-result',

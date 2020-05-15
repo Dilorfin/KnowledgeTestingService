@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TestInfo } from 'src/app/_models/tests/test-info';
+import { TestInfo } from 'src/app/_models/test-querying/test-info';
 import { Pagination } from 'src/app/_helpers/pagination';
 import { TestsService } from './tests.service';
 

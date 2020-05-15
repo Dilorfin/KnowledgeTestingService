@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TestResult } from 'src/app/_models/tests/test-result';
+import { TestResult } from 'src/app/_models/test-result/test-result';
 import { Pagination } from 'src/app/_helpers/pagination';
 import { HistoryService } from './history.service';
 

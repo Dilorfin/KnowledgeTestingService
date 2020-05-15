@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TestPassingService } from '../test-passing.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { FullTest } from 'src/app/_models/tests/full-test';
+import { FullTest } from 'src/app/_models/test-querying/full-test';
 
 @Component({
 	selector: 'app-start-attempt',
