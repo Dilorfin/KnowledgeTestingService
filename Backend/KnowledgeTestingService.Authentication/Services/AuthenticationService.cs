@@ -62,7 +62,6 @@ namespace KnowledgeTestingService.Authentication.Services
             using (var sha256 = SHA256.Create())
             {
                 var computeHash = sha256.ComputeHash(Encoding.Default.GetBytes(JwtEncryptionKey));
-                logger.LogInformation(computeHash.Length.ToString());
                 encryptionKey = new SymmetricSecurityKey(computeHash);
             }
 
