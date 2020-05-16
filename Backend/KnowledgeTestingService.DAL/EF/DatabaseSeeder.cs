@@ -14,7 +14,7 @@ namespace KnowledgeTestingService.DAL.EF
                     Id = 1,
                     Title = "Literature test",
                     Description = "Several questions about literature",
-                    Time = new TimeSpan(0, 2, 0)
+                    Time = new TimeSpan(0, 4, 20)
                 }
             );
 
@@ -41,6 +41,24 @@ namespace KnowledgeTestingService.DAL.EF
                 {
                     Id = 4,
                     QuestionText = "Which of these is a historical psychological novel in two volumes by Stendhal?",
+                    TestId = 1
+                },
+                new Question
+                {
+                    Id = 5,
+                    QuestionText = "Who is not part of Professor Woland's group from The Master and Margarita novel?",
+                    TestId = 1
+                },
+                new Question
+                {
+                    Id = 6,
+                    QuestionText = "What does the White Rabbit call Alice in the novel Alice in Wonderland by Lewis Carroll?",
+                    TestId = 1
+                },
+                new Question
+                {
+                    Id = 7,
+                    QuestionText = "What does Bilbo names his sword in The Hobbit by J. R. R. Tolkien?",
                     TestId = 1
                 }
             );
@@ -122,6 +140,90 @@ namespace KnowledgeTestingService.DAL.EF
                     AnswerText = "The Black and The White",
                     IsCorrect = false,
                     QuestionId = 4
+                },
+                new Answer
+                {
+                    Id = 12,
+                    AnswerText = "A ghoul",
+                    IsCorrect = false,
+                    QuestionId = 5
+                },
+                new Answer
+                {
+                    Id = 13,
+                    AnswerText = "A witch",
+                    IsCorrect = false,
+                    QuestionId = 5
+                },
+                new Answer
+                {
+                    Id = 14,
+                    AnswerText = "A vampire",
+                    IsCorrect = false,
+                    QuestionId = 5
+                },
+                new Answer
+                {
+                    Id = 15,
+                    AnswerText = "A werewolf",
+                    IsCorrect = true,
+                    QuestionId = 5
+                },
+                new Answer
+                {
+                    Id = 16,
+                    AnswerText = "Judy",
+                    IsCorrect = false,
+                    QuestionId = 6
+                },
+                new Answer
+                {
+                    Id = 17,
+                    AnswerText = "Ginger",
+                    IsCorrect = false,
+                    QuestionId = 6
+                },
+                new Answer
+                {
+                    Id = 18,
+                    AnswerText = "Mary Ann",
+                    IsCorrect = true,
+                    QuestionId = 6
+                },
+                new Answer
+                {
+                    Id = 19,
+                    AnswerText = "Linda",
+                    IsCorrect = false,
+                    QuestionId = 6
+                },
+                new Answer
+                {
+                    Id = 20,
+                    AnswerText = "Slayer",
+                    IsCorrect = false,
+                    QuestionId = 7
+                },
+                new Answer
+                {
+                    Id = 21,
+                    AnswerText = "Thorin",
+                    IsCorrect = false,
+                    QuestionId = 7
+                },
+                new Answer
+                {
+                    Id = 22,
+                    AnswerText = "Precious",
+                    IsCorrect = false,
+                    QuestionId = 7
+                },
+                new Answer
+                {
+                    Id = 23,
+                    AnswerText = "Sting",
+                    IsCorrect = true,
+                    QuestionId = 7
                 }
             );
         }
