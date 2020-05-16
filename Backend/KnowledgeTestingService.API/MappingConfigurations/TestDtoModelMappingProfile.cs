@@ -20,6 +20,7 @@ namespace KnowledgeTestingService.API.MappingConfigurations
             CreateMap<UserAnswersModel, TestResultCreateDto>();
 
             CreateMap<TestResultDto, TestResultModel>();
+            CreateMap<TestGeneralStatisticDto, TestGeneralStatisticModel>();
         }
     }
 }

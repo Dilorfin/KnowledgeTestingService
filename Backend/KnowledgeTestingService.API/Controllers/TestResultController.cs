@@ -27,6 +27,15 @@ namespace KnowledgeTestingService.API.Controllers
             this.mapper = mapper;
         }
 
+        [Authorize(Roles = "admin")]
+        [HttpGet("GetTestsGeneralStatistic")]
+        public async Task<IActionResult> GetTestsGeneralStatistic(int offset, int count)
+        {
+            var generalStatisticCount = await testResultService.GetTestsGeneralStatisticCount();
+            var testsGeneralStatistic = await testResultService.GetTestsGeneralStatistic(offset, count);
+            return responseComposer.ComposeForGetTestsGeneralStatistic(generalStatisticCount, testsGeneralStatistic);
+        }
+
         [HttpGet("GetAllUserResults")]
         public async Task<IActionResult> GetAllUserResults(int offset, int count)
         {

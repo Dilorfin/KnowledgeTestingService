@@ -10,5 +10,8 @@ namespace KnowledgeTestingService.API.Services.Tests
         IActionResult ComposeForCheckUserAnswers(Result<int> checkResult);
         IActionResult ComposeForGetAllUsersResults(long userResultsCount,
             IEnumerable<TestResultDto> testResultDtos);
+
+        IActionResult ComposeForGetTestsGeneralStatistic(long testsGeneralStatisticCount,
+            IEnumerable<TestGeneralStatisticDto> testsGeneralStatistic);
     }
 }

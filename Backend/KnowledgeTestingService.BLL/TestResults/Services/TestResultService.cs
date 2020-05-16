@@ -41,7 +41,7 @@ namespace KnowledgeTestingService.BLL.TestResults.Services
                     (correctAnswer, userAnswer) => correctAnswer.Id == userAnswer.Value)
                 .Count(result => result);
 
-            double usersTestResult = (correctAnswersNumber / (double)answers.Count)*100;
+            double usersTestResult = (correctAnswersNumber / (double)answers.Count) * 100;
 
             var testResult = new TestResult
             {
@@ -52,7 +52,7 @@ namespace KnowledgeTestingService.BLL.TestResults.Services
             };
             dataStorage.TestResults.Add(testResult);
             await dataStorage.SaveChangesAsync();
-            
+
             return Result.Ok(testResult.Id);
         }
 
@@ -86,6 +86,27 @@ namespace KnowledgeTestingService.BLL.TestResults.Services
             return Result.Ok(mapper.Map<TestResultDto>(testResult));
         }
 
+        public async Task<IEnumerable<TestGeneralStatisticDto>> GetTestsGeneralStatistic(int offset, int count)
+        {
+            var tests = await dataStorage.Tests.GetAll(offset, count);
+            var testResults = await dataStorage.TestResults.GetTestResultsForTestsRange(tests.Select(t => t.Id));
 
+            var statisticDtos = testResults.GroupBy(tr => tr.TestId)
+                .Select(group =>
+                    new TestGeneralStatisticDto
+                    {
+                        TestId = group.Key,
+                        TestTitle = group.First().Test.Title,
+                        ResultsAverage = group.Average(tr => tr.Result),
+                        AttemptsNumber = group.Count()
+                    });
+            
+            return statisticDtos;
+        }
+
+        public async Task<long> GetTestsGeneralStatisticCount()
+        {
+            return await dataStorage.Tests.LongCountAsync();
+        }
     }
 }
