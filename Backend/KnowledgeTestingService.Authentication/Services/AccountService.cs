@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using KnowledgeTestingService.Authentication.DataTransferObjects;
+using KnowledgeTestingService.Common;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -18,6 +19,21 @@ namespace KnowledgeTestingService.Authentication.Services
         {
             this.userManager = userManager;
             this.mapper = mapper;
+        }
+
+        public async Task<Result<UserDto>> GetUserById(string userId)
+        {
+            if (userId is null)
+            {
+                return Result.Fail<UserDto>(-1);
+            }
+            var user = await userManager.FindByIdAsync(userId);
+            if (user is null)
+            {
+                return Result.Fail<UserDto>(-1);
+            }
+
+            return Result.Ok(mapper.Map<UserDto>(user));
         }
 
         public async Task<IEnumerable<UserDto>> GetAll(int offset, int count)

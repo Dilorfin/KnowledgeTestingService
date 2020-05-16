@@ -25,6 +25,29 @@ namespace KnowledgeTestingService.API.Controllers
 
         }
 
+        [HttpGet("GetCurrentUser")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        public async Task<IActionResult> GetCurrentUser()
+        {
+            string currentUserId = HttpContext.User.FindFirst(ClaimTypes.Name)?.Value;
+            var getUserResult = await accountService.GetUserById(currentUserId);
+
+            if (getUserResult.Success)
+            {
+                var userModel = mapper.Map<UserModel>(getUserResult.Value);
+
+                return Ok(userModel);
+            }
+
+            if (getUserResult.Status == -1)
+            {
+                return BadRequest("Unknown user");
+            }
+
+            return BadRequest();
+        }
+
         [Authorize(Roles = "admin")]
         [HttpGet("GetAllUsers")]
         [ProducesResponseType(200)]

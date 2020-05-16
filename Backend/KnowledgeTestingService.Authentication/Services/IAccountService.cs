@@ -1,4 +1,5 @@
 ﻿using KnowledgeTestingService.Authentication.DataTransferObjects;
+using KnowledgeTestingService.Common;
 using Microsoft.AspNetCore.Identity;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -7,6 +8,12 @@ namespace KnowledgeTestingService.Authentication.Services
 {
     public interface IAccountService
     {
+        /// <summary>
+        /// Gets user's information
+        /// </summary>
+        /// <returns>User's data</returns>
+        Task<Result<UserDto>> GetUserById(string userId);
+
         /// <summary>
         /// Get count of users starting from offset 
         /// </summary>

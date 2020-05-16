@@ -1,1 +1,8 @@
+<div *ngIf="!user">
+    Loading user data... <span class="spinner-border spinner-border-sm text-dark"></span>
+</div>
+<div *ngIf="user">
+    <h4>User: {{user.userName}}</h4>
+    <p *ngIf="user.email">Email: {{user.email}}</p>
+</div>
 <button class="btn btn-danger" (click)="logout();">Log out</button>
