@@ -43,6 +43,7 @@ Generated\ Files/
 [Tt]est[Rr]esult*/
 !KnowledgeTestingService.API/Models/TestResult/
 !KnowledgeTestingService.BLL/TestResults/
+!KnowledgeTestingService.DAL/Repositories/TestResults/
 [Bb]uild[Ll]og.*
 
 # NUnit
