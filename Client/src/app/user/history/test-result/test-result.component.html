@@ -3,7 +3,7 @@
 </div>
 <div *ngIf="testResult">
     <h4>{{testResult.testTitle}}</h4>
-
+    <h5>Attempt date: {{testResult.attemptDate | date:'dd MMMM yyyy':'UTC'}}</h5>
     <div class="row">
         <div class="col-10 col-sm-6">
 			<div class="progress" style="height: 40px;">
