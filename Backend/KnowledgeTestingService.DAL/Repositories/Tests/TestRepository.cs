@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace KnowledgeTestingService.DAL.Repositories.Tests
 {
-    public class TestRepository : Repository<Test>, ITestRepository
+    public class TestRepository : Repository, ITestRepository
     {
         private readonly DbSet<Test> tests;
 
@@ -17,23 +17,7 @@ namespace KnowledgeTestingService.DAL.Repositories.Tests
             this.tests = dbContext.Tests;
         }
 
-        public override async Task<Test> GetAsync(int id)
-        {
-            return await tests
-                .Include(t => t.Questions)
-                .ThenInclude(q => q.Answers)
-                .FirstOrDefaultAsync(t => t.Id == id);
-        }
-
-        public override async Task<IEnumerable<Test>> GetAll()
-        {
-            return await tests
-                .Include(t => t.Questions)
-                .ThenInclude(q => q.Answers)
-                .ToListAsync();
-        }
-
-        public override async Task<IEnumerable<Test>> GetAll(int offset, int count)
+        public async Task<IEnumerable<Test>> GetAll(int offset, int count)
         {
             return await tests
                 .Include(t => t.Questions)
@@ -41,6 +25,11 @@ namespace KnowledgeTestingService.DAL.Repositories.Tests
                 .Skip(offset)
                 .Take(count)
                 .ToListAsync();
+        }
+
+        public async Task<long> LongCountAsync()
+        {
+            return await tests.LongCountAsync();
         }
 
         public async Task<IEnumerable<Test>> GetAll(int offset, int count, string filter)
@@ -54,35 +43,34 @@ namespace KnowledgeTestingService.DAL.Repositories.Tests
                 .ToListAsync();
         }
 
-        public override void Delete(Test entity)
-        {
-            tests.Remove(entity);
-        }
-
-        public override void Add(Test entity)
-        {
-            tests.Add(entity);
-        }
-
-        public override void Update(Test entity)
-        {
-            tests.Update(entity);
-        }
-
-        public override async Task<bool> ContainsEntityWithId(int id)
-        {
-            return await tests.AnyAsync(t => t.Id == id);
-        }
-
-        public async Task<long> LongCountAsync()
-        {
-            return await tests.LongCountAsync();
-        }
         public async Task<long> LongCountAsync(string filter)
         {
             return await tests
                 .Where(t => t.Title.Contains(filter))
                 .LongCountAsync();
+        }
+
+        public async Task<Test> GetAsync(int id)
+        {
+            return await tests
+                .Include(t => t.Questions)
+                .ThenInclude(q => q.Answers)
+                .FirstOrDefaultAsync(t => t.Id == id);
+        }
+
+        public void Add(Test entity)
+        {
+            tests.Add(entity);
+        }
+
+        public void Update(Test entity)
+        {
+            tests.Update(entity);
+        }
+
+        public void Delete(Test entity)
+        {
+            tests.Remove(entity);
         }
     }
 }
