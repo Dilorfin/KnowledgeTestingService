@@ -49,7 +49,7 @@ namespace KnowledgeTestingService.API
             app.UseRouting();
 
             app.UseCors(x => x
-                .AllowAnyOrigin()
+                .WithOrigins(Configuration["SpaHost"])
                 .AllowAnyMethod()
                 .AllowAnyHeader());
 
@@ -68,7 +68,7 @@ namespace KnowledgeTestingService.API
 
                 if (env.IsDevelopment())
                 {
-                    spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
+                    spa.UseProxyToSpaDevelopmentServer(Configuration["SpaHost"]);
                 }
             });
         }
