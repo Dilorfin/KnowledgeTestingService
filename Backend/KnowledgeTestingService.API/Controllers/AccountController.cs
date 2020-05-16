@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace KnowledgeTestingService.API.Controllers
@@ -97,6 +98,11 @@ namespace KnowledgeTestingService.API.Controllers
             {
                 return BadRequest();
             }
+            string currentUserId = HttpContext.User.FindFirst(ClaimTypes.Name)?.Value;
+            if (userId == currentUserId)
+            {
+                return BadRequest("You cannot ban yourself");
+            }
 
             var identityErrors = await accountService.BanUser(userId);
             if (identityErrors.Any())
@@ -114,7 +120,11 @@ namespace KnowledgeTestingService.API.Controllers
             {
                 return BadRequest();
             }
-
+            string currentUserId = HttpContext.User.FindFirst(ClaimTypes.Name)?.Value;
+            if (userId == currentUserId)
+            {
+                return BadRequest("You cannot unban yourself");
+            }
             var identityErrors = await accountService.UnbanUser(userId);
             if (identityErrors.Any())
             {
