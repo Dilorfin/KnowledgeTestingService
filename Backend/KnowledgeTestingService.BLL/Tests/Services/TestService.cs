@@ -12,11 +12,13 @@ namespace KnowledgeTestingService.BLL.Tests.Services
     public class TestService : ITestService
     {
         private readonly IUnitOfWork dataStorage;
+        private readonly ITestValidator testValidator;
         private readonly IMapper mapper;
 
-        public TestService(IUnitOfWork dataStorage, IMapper mapper)
+        public TestService(IUnitOfWork dataStorage, ITestValidator testValidator,IMapper mapper)
         {
             this.dataStorage = dataStorage;
+            this.testValidator = testValidator;
             this.mapper = mapper;
         }
 
@@ -58,6 +60,12 @@ namespace KnowledgeTestingService.BLL.Tests.Services
 
         public async Task<Result> AddTest(EditTestDto editTestDto)
         {
+            var validationResult = testValidator.ValidateEditTestDto(editTestDto);
+            if (validationResult.Failure)
+            {
+                return validationResult;
+            }
+
             var test = mapper.Map<Test>(editTestDto);
             dataStorage.Tests.Add(test);
 
@@ -68,6 +76,12 @@ namespace KnowledgeTestingService.BLL.Tests.Services
 
         public async Task<Result> UpdateTest(EditTestDto editTestDto)
         {
+            var validationResult = testValidator.ValidateEditTestDto(editTestDto);
+            if (validationResult.Failure)
+            {
+                return validationResult;
+            }
+
             var questions = mapper.Map<IEnumerable<Question>>(editTestDto.Questions);
             var storedTest = await dataStorage.Tests.GetAsync(editTestDto.Id);
             var except = storedTest.Questions.Where(st => questions.FirstOrDefault(q => q.Id == st.Id) is null);

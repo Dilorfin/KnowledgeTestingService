@@ -2,6 +2,8 @@
 using KnowledgeTestingService.API.Services.Tests;
 using KnowledgeTestingService.Authentication;
 using KnowledgeTestingService.Authentication.Services;
+using KnowledgeTestingService.BLL.Answers.Services;
+using KnowledgeTestingService.BLL.Questions.Services;
 using KnowledgeTestingService.BLL.TestResults.Services;
 using KnowledgeTestingService.BLL.Tests.Services;
 using KnowledgeTestingService.DAL.EF;
@@ -36,6 +38,10 @@ namespace KnowledgeTestingService.API
 
             services.AddScoped<ITestService, TestService>();
             services.AddScoped<ITestResultService, TestResultService>();
+
+            services.AddScoped<ITestValidator, TestValidator>();
+            services.AddScoped<IQuestionValidator, QuestionValidator>();
+            services.AddScoped<IAnswerValidator, AnswerValidator>();
 
             services.AddScoped<ITestResultResponseComposer, TestResultResponseComposer>();
             services.AddScoped<ITestQueryingResponseComposer, TestQueryingResponseComposer>();
