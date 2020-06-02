@@ -3,7 +3,7 @@ using System;
 
 namespace KnowledgeTestingService.DAL.Repositories
 {
-    public abstract class Repository
+    public abstract class Repository : IDisposable
     {
         protected readonly ApplicationDbContext DbContext;
         private bool disposed;

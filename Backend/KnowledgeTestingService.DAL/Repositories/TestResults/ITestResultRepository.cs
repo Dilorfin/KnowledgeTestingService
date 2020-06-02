@@ -27,7 +27,7 @@ namespace KnowledgeTestingService.DAL.Repositories.TestResults
         /// <param name="offset">Number of entities to skip</param>
         /// <param name="count">Number of entities to return</param>
         /// <returns>Returns count of entities from the offset</returns>
-        Task<IEnumerable<TestResult>> GetAllUsersTestResults(string userId, int offset, int count);
+        Task<IEnumerable<TestResult>> GetRangeByUser(string userId, int offset, int count);
 
         /// <summary>
         /// Counts test results of certain user
@@ -41,6 +41,6 @@ namespace KnowledgeTestingService.DAL.Repositories.TestResults
         /// </summary>
         /// <param name="testIds">Ids of tests</param>
         /// <returns>Returns test results for tests</returns>
-        Task<IEnumerable<TestResult>> GetTestResultsForTestsRange(IEnumerable<int> testIds);
+        Task<IEnumerable<TestResult>> GetAllByTestsRange(IEnumerable<int> testIds);
     }
 }

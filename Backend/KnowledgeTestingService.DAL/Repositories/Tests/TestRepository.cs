@@ -17,7 +17,7 @@ namespace KnowledgeTestingService.DAL.Repositories.Tests
             this.tests = dbContext.Tests;
         }
 
-        public async Task<IEnumerable<Test>> GetAll(int offset, int count)
+        public async Task<IEnumerable<Test>> GetRange(int offset, int count)
         {
             return await tests
                 .Include(t => t.Questions)
@@ -32,7 +32,7 @@ namespace KnowledgeTestingService.DAL.Repositories.Tests
             return await tests.LongCountAsync();
         }
 
-        public async Task<IEnumerable<Test>> GetAll(int offset, int count, string filter)
+        public async Task<IEnumerable<Test>> GetRange(int offset, int count, string filter)
         {
             return await tests
                 .Include(t => t.Questions)

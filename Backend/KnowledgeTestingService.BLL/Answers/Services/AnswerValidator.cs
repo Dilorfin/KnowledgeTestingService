@@ -28,5 +28,28 @@ namespace KnowledgeTestingService.BLL.Answers.Services
 
             return Result.Ok();
         }
+
+        public Result ValidateAddAnswerDto(AddAnswerDto answerDto)
+        {
+            if (string.IsNullOrWhiteSpace(answerDto.AnswerText))
+            {
+                return Result.Fail(-7);
+            }
+            return Result.Ok();
+        }
+
+        public Result ValidateAddAnswerDtos(IEnumerable<AddAnswerDto> answerDtos)
+        {
+            if (!answerDtos.Any(a => a.IsCorrect))
+            {
+                return Result.Fail(-5);
+            }
+            if(answerDtos.Any(a => ValidateAddAnswerDto(a).Failure))
+            {
+                return Result.Fail(-6);
+            }
+
+            return Result.Ok();
+        }
     }
 }

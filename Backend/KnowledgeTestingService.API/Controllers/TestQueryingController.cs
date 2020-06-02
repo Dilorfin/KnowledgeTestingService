@@ -35,12 +35,12 @@ namespace KnowledgeTestingService.API.Controllers
             if (string.IsNullOrEmpty(filter))
             {
                 testsCount = await testService.GetTestsCount();
-                allTestsInfo = await testService.GeAllTestsInfo(offset, count);
+                allTestsInfo = await testService.GetTestsInfoRange(offset, count);
             }
             else
             {
                 testsCount = await testService.GetTestsCount(filter);
-                allTestsInfo = await testService.GeAllTestsInfo(offset, count, filter);
+                allTestsInfo = await testService.GetTestsInfoRange(offset, count, filter);
             }
 
             return responseComposer.ComposeForGetAllTestsInfo(testsCount, allTestsInfo);

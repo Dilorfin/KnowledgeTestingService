@@ -10,7 +10,7 @@ namespace KnowledgeTestingService.BLL.Questions
             CreateMap<Question, QuestionDto>();
 
             CreateMap<Question, EditQuestionDto>();
-            CreateMap<EditQuestionDto, Question>();
+            CreateMap<AddQuestionDto, Question>();
         }
     }
 }

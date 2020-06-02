@@ -34,10 +34,10 @@ namespace KnowledgeTestingService.API.Controllers
         }
 
         [HttpPost("AddTest")]
-        public async Task<IActionResult> AddTest([FromBody] EditTestModel editTestModel)
+        public async Task<IActionResult> AddTest([FromBody] EditTestModel addTestModel)
         {
-            var editTestDto = mapper.Map<EditTestDto>(editTestModel);
-            var addResult = await testService.AddTest(editTestDto);
+            var addTestDto = mapper.Map<AddTestDto>(addTestModel);
+            var addResult = await testService.AddTest(addTestDto);
 
             if (addResult.Success)
                 return Ok();

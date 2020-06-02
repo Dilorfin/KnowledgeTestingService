@@ -22,16 +22,26 @@ namespace KnowledgeTestingService.BLL.Tests.Services
             this.mapper = mapper;
         }
 
-        public async Task<IEnumerable<TestInfoDto>> GeAllTestsInfo(int offset, int count)
+        public async Task<IEnumerable<TestInfoDto>> GetTestsInfoRange(int offset, int count)
         {
-            var tests = await dataStorage.Tests.GetAll(offset, count);
+            var tests = await dataStorage.Tests.GetRange(offset, count);
             return mapper.Map<IEnumerable<TestInfoDto>>(tests);
         }
 
-        public async Task<IEnumerable<TestInfoDto>> GeAllTestsInfo(int offset, int count, string filter)
+        public async Task<IEnumerable<TestInfoDto>> GetTestsInfoRange(int offset, int count, string filter)
         {
-            var tests = await dataStorage.Tests.GetAll(offset, count, filter);
+            var tests = await dataStorage.Tests.GetRange(offset, count, filter);
             return mapper.Map<IEnumerable<TestInfoDto>>(tests);
+        }
+
+        public async Task<long> GetTestsCount()
+        {
+            return await dataStorage.Tests.LongCountAsync();
+        }
+
+        public async Task<long> GetTestsCount(string filter)
+        {
+            return await dataStorage.Tests.LongCountAsync(filter);
         }
 
         public async Task<Result<FullTestDto>> GetFullTest(int id)
@@ -58,15 +68,27 @@ namespace KnowledgeTestingService.BLL.Tests.Services
             return Result.Ok(editTestDto);
         }
 
-        public async Task<Result> AddTest(EditTestDto editTestDto)
+        public async Task<Result<TestInfoDto>> GeTestInfo(int id)
         {
-            var validationResult = testValidator.ValidateEditTestDto(editTestDto);
+            var test = await dataStorage.Tests.GetAsync(id);
+            if (test is null)
+            {
+                return Result.Fail<TestInfoDto>(-1);
+            }
+
+            var testInfoDto = mapper.Map<TestInfoDto>(test);
+            return Result.Ok(testInfoDto);
+        }
+
+        public async Task<Result> AddTest(AddTestDto addTestDto)
+        {
+            var validationResult = testValidator.ValidateAddTestDto(addTestDto);
             if (validationResult.Failure)
             {
                 return validationResult;
             }
 
-            var test = mapper.Map<Test>(editTestDto);
+            var test = mapper.Map<Test>(addTestDto);
             dataStorage.Tests.Add(test);
 
             await dataStorage.SaveChangesAsync();
@@ -111,28 +133,6 @@ namespace KnowledgeTestingService.BLL.Tests.Services
             
             await dataStorage.SaveChangesAsync();
             return Result.Ok();
-        }
-
-        public async Task<Result<TestInfoDto>> GeTestInfo(int id)
-        {
-            var test = await dataStorage.Tests.GetAsync(id);
-            if (test is null)
-            {
-                return Result.Fail<TestInfoDto>(-1);
-            }
-
-            var testInfoDto = mapper.Map<TestInfoDto>(test);
-            return Result.Ok(testInfoDto);
-        }
-
-        public async Task<long> GetTestsCount()
-        {
-            return await dataStorage.Tests.LongCountAsync();
-        }
-
-        public async Task<long> GetTestsCount(string filter)
-        {
-            return await dataStorage.Tests.LongCountAsync(filter);
         }
     }
 }

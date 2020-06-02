@@ -29,7 +29,7 @@ namespace KnowledgeTestingService.DAL.Repositories.TestResults
             testResults.Add(entity);
         }
 
-        public async Task<IEnumerable<TestResult>> GetAllUsersTestResults(string userId, int offset, int count)
+        public async Task<IEnumerable<TestResult>> GetRangeByUser(string userId, int offset, int count)
         {
             return await testResults
                 .Where(tr => tr.UserId == userId)
@@ -46,7 +46,7 @@ namespace KnowledgeTestingService.DAL.Repositories.TestResults
                 .LongCountAsync();
         }
 
-        public async Task<IEnumerable<TestResult>> GetTestResultsForTestsRange(IEnumerable<int> testIds)
+        public async Task<IEnumerable<TestResult>> GetAllByTestsRange(IEnumerable<int> testIds)
         {
             return await testResults
                 .Where(tr => testIds.Contains(tr.TestId))

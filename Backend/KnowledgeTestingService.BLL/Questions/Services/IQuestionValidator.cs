@@ -7,5 +7,8 @@ namespace KnowledgeTestingService.BLL.Questions.Services
     {
         Result ValidateEditQuestionDto(EditQuestionDto questionDto);
         Result ValidateEditQuestionDtos(IEnumerable<EditQuestionDto> questionDtos);
+        
+        Result ValidateAddQuestionDto(AddQuestionDto questionDto);
+        Result ValidateAddQuestionDtos(IEnumerable<AddQuestionDto> questionDtos);
     }
 }

@@ -14,12 +14,22 @@ namespace KnowledgeTestingService.BLL.Tests.Services
 
         public Result ValidateEditTestDto(EditTestDto editTestDto)
         {
-            if (string.IsNullOrEmpty(editTestDto.Title.Trim()))
+            if (string.IsNullOrWhiteSpace(editTestDto.Title))
             {
                 return Result.Fail(-1);
             }
 
             return questionValidator.ValidateEditQuestionDtos(editTestDto.Questions);
+        }
+
+        public Result ValidateAddTestDto(AddTestDto addTestDto)
+        {
+            if (string.IsNullOrWhiteSpace(addTestDto.Title))
+            {
+                return Result.Fail(-1);
+            }
+
+            return questionValidator.ValidateAddQuestionDtos(addTestDto.Questions);
         }
     }
 }

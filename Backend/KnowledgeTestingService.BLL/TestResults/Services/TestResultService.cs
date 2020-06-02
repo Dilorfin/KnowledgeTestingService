@@ -58,7 +58,7 @@ namespace KnowledgeTestingService.BLL.TestResults.Services
 
         public async Task<IEnumerable<TestResultDto>> GetAllUserResults(string userId, int offset, int count)
         {
-            var allUsersTestResults = await dataStorage.TestResults.GetAllUsersTestResults(userId, offset, count);
+            var allUsersTestResults = await dataStorage.TestResults.GetRangeByUser(userId, offset, count);
             return mapper.Map<IEnumerable<TestResultDto>>(allUsersTestResults);
         }
 
@@ -88,8 +88,8 @@ namespace KnowledgeTestingService.BLL.TestResults.Services
 
         public async Task<IEnumerable<TestGeneralStatisticDto>> GetTestsGeneralStatistic(int offset, int count)
         {
-            var tests = await dataStorage.Tests.GetAll(offset, count);
-            var testResults = await dataStorage.TestResults.GetTestResultsForTestsRange(tests.Select(t => t.Id));
+            var tests = await dataStorage.Tests.GetRange(offset, count);
+            var testResults = await dataStorage.TestResults.GetAllByTestsRange(tests.Select(t => t.Id));
 
             var statisticDtos = testResults.GroupBy(tr => tr.TestId)
                 .Select(group =>

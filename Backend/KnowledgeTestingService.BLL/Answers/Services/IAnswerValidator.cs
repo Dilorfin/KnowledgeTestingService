@@ -7,5 +7,8 @@ namespace KnowledgeTestingService.BLL.Answers.Services
     {
         Result ValidateEditAnswerDto(EditAnswerDto answerDto);
         Result ValidateEditAnswerDtos(IEnumerable<EditAnswerDto> answerDtos);
+
+        Result ValidateAddAnswerDto(AddAnswerDto answerDto);
+        Result ValidateAddAnswerDtos(IEnumerable<AddAnswerDto> answerDtos);
     }
 }

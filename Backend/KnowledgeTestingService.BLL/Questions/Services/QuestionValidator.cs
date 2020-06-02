@@ -38,5 +38,30 @@ namespace KnowledgeTestingService.BLL.Questions.Services
             }
             return Result.Ok();
         }
+
+        public Result ValidateAddQuestionDto(AddQuestionDto questionDto)
+        {
+            if (string.IsNullOrWhiteSpace(questionDto.QuestionText))
+            {
+                return Result.Fail(-3);
+            }
+
+            if (!questionDto.Answers.Any())
+            {
+                return Result.Fail(-4);
+            }
+
+            return answerValidator.ValidateAddAnswerDtos(questionDto.Answers);
+        }
+
+        public Result ValidateAddQuestionDtos(IEnumerable<AddQuestionDto> questionDtos)
+        {
+            if(!questionDtos.Any() 
+               || !questionDtos.All(q => this.ValidateAddQuestionDto(q).Success))
+            {
+                return Result.Fail(-2);
+            }
+            return Result.Ok();
+        }
     }
 }

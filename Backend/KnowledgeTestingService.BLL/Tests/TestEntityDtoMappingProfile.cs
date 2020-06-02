@@ -10,7 +10,7 @@ namespace KnowledgeTestingService.BLL.Tests
         {
             CreateMap<Test, EditTestDto>()
                 .ForPath(dest => dest.Time, src => src.MapFrom(t=> t.Time.TotalMilliseconds));
-            CreateMap<EditTestDto, Test>()
+            CreateMap<AddTestDto, Test>()
                 .ForPath(dest => dest.Time, src => src.MapFrom(t=> TimeSpan.FromMilliseconds(t.Time)));
 
             CreateMap<Test, FullTestDto>()

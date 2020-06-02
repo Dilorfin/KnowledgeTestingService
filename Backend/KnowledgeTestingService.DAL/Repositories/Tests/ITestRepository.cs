@@ -13,7 +13,7 @@ namespace KnowledgeTestingService.DAL.Repositories.Tests
         /// <param name="offset">Number of entities to skip</param>
         /// <param name="count">Number of entities to return</param>
         /// <returns>Returns count of entities from the offset</returns>
-        Task<IEnumerable<Test>> GetAll(int offset, int count);
+        Task<IEnumerable<Test>> GetRange(int offset, int count);
 
         /// <summary>
         /// Counts tests
@@ -22,16 +22,16 @@ namespace KnowledgeTestingService.DAL.Repositories.Tests
         Task<long> LongCountAsync();
 
         /// <summary>
-        /// Get certain amount of entities that contains starting from specified offset.
+        /// Get certain amount of entities that contains filter starting from specified offset.
         /// </summary>
         /// <param name="offset">Number of entities to skip</param>
         /// <param name="count">Number of entities to return</param>
-        /// <param name="filter"></param>
+        /// <param name="filter">String to contain</param>
         /// <returns>Returns filtered count of entities from the offset</returns>
-        Task<IEnumerable<Test>> GetAll(int offset, int count, string filter);
+        Task<IEnumerable<Test>> GetRange(int offset, int count, string filter);
 
         /// <summary>
-        /// Counts tests matching the filter
+        /// Counts tests contains filter string
         /// </summary>
         /// <param name="filter">Filter to match</param>
         /// <returns>Returns number of tests that match filter</returns>

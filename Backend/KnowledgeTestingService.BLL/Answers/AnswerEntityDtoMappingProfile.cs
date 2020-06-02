@@ -10,7 +10,7 @@ namespace KnowledgeTestingService.BLL.Answers
             CreateMap<Answer, AnswerDto>();
             
             CreateMap<Answer, EditAnswerDto>();
-            CreateMap<EditAnswerDto, Answer>();
+            CreateMap<AddAnswerDto, Answer>();
         }
     }
 }
