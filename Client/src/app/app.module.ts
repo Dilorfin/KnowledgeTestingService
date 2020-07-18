@@ -28,6 +28,7 @@ import { TestResultComponent } from './user/history/test-result/test-result.comp
 import { QuestionsComponent } from './test-passing/questions/questions.component';
 import { TestPassingService } from './test-passing/test-passing.service';
 import { TestEditingComponent } from './admin/admin-tests-management/test-editing/test-editing.component';
+import { ForbiddenComponent } from './forbidden/forbidden.component';
 
 
 const adminRoutes: Routes = [
@@ -67,6 +68,7 @@ const appRouts: Routes = [
 		canActivate: [AuthGuard]
 	},
 	{ path: 'auth', component: AuthComponent, children: authRoutes },
+	{ path: 'forbidden', component: ForbiddenComponent },
 	{ path: '**', component: NotfoundComponent }
 ]
 
@@ -89,7 +91,8 @@ const appRouts: Routes = [
 		StartAttemptComponent,
 		TestResultComponent,
 		QuestionsComponent,
-		TestEditingComponent
+		TestEditingComponent,
+		ForbiddenComponent
 	],
 	imports: [
 		BrowserModule,
