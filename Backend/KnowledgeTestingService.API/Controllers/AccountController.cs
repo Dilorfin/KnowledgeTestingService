@@ -22,9 +22,14 @@ namespace KnowledgeTestingService.API.Controllers
         {
             this.accountService = accountService;
             this.mapper = mapper;
-
         }
 
+        /// <summary>
+        /// Get current user.
+        /// </summary>
+        /// <returns>Returns current user</returns>
+        /// <response code="200">If get succeeded</response>
+        /// <response code="400">If user id is invalid</response>
         [HttpGet("GetCurrentUser")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
@@ -48,6 +53,13 @@ namespace KnowledgeTestingService.API.Controllers
             return BadRequest();
         }
 
+        /// <summary>
+        /// Get all users in range.
+        /// </summary>
+        /// <param name="offset">Number of users to skip</param>
+        /// <param name="count">Number of users to take</param>
+        /// <returns>Returns all users in range</returns>
+        /// <response code="200">Always</response>
         [Authorize(Roles = "admin")]
         [HttpGet("GetAllUsers")]
         [ProducesResponseType(200)]
@@ -62,11 +74,11 @@ namespace KnowledgeTestingService.API.Controllers
         }
 
         /// <summary>
-        /// Performs user adding admin role.
+        /// Performs adding admin role to user.
         /// </summary>
-        /// <param name="userId">TODO</param>
+        /// <param name="userId">Id of user to add admin</param>
         /// <response code="200">If adding admin role succeeded</response>
-        /// <response code="400">If the model is invalid or contains invalid data</response>
+        /// <response code="400">If the user id is invalid</response>
         [Authorize(Roles = "admin")]
         [HttpPost("SetAdmin")]
         [ProducesResponseType(200)]
@@ -88,11 +100,11 @@ namespace KnowledgeTestingService.API.Controllers
         }
 
         /// <summary>
-        /// Performs user adding admin role.
+        /// Performs removing admin role from user.
         /// </summary>
-        /// <param name="userId">TODO</param>
+        /// <param name="userId">Id of user to remove admin</param>
         /// <response code="200">If removing admin role succeeded</response>
-        /// <response code="400">If the model is invalid or contains invalid data</response>
+        /// <response code="400">If the user id is invalid</response>
         [Authorize(Roles = "admin")]
         [HttpPost("RemoveAdmin")]
         [ProducesResponseType(200)]
@@ -113,6 +125,12 @@ namespace KnowledgeTestingService.API.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Performs user banning.
+        /// </summary>
+        /// <param name="userId">Id of user to ban</param>
+        /// <response code="200">If banning succeeded</response>
+        /// <response code="400">If the user id is invalid</response>
         [Authorize(Roles = "admin")]
         [HttpPost("Ban")]
         public async Task<IActionResult> BanUser(string userId)
@@ -135,6 +153,12 @@ namespace KnowledgeTestingService.API.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Performs user unbanning.
+        /// </summary>
+        /// <param name="userId">Id of user to unban</param>
+        /// <response code="200">If unbanning succeeded</response>
+        /// <response code="400">If the user id is invalid</response>
         [Authorize(Roles = "admin")]
         [HttpPost("Unban")]
         public async Task<IActionResult> UnbanUser(string userId)

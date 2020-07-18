@@ -29,5 +29,43 @@ namespace KnowledgeTestingService.API.Services.Tests
 
             return new BadRequestResult();
         }
+
+        public IActionResult ComposeAddTest(Result result)
+        {
+            if (result.Success)
+            {
+                return new OkResult();
+            }
+
+            if (result.Status == -1)
+            {
+                return new BadRequestObjectResult("Incorrect test title.");
+            }
+            if (result.Status == -2)
+            {
+                return new BadRequestObjectResult("Some questions are incorrect.");
+            }
+
+            return new BadRequestResult();
+        }
+
+        public IActionResult ComposeUpdateTest(Result result)
+        {
+            if (result.Success)
+            {
+                return new OkResult();
+            }
+
+            if (result.Status == -1)
+            {
+                return new BadRequestObjectResult("Incorrect test title.");
+            }
+            if (result.Status == -2)
+            {
+                return new BadRequestObjectResult("Some questions are incorrect.");
+            }
+
+            return new BadRequestResult();
+        }
     }
 }

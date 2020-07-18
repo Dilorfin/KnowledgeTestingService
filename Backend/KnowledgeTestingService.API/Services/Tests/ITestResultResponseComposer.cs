@@ -13,5 +13,7 @@ namespace KnowledgeTestingService.API.Services.Tests
 
         IActionResult ComposeForGetTestsGeneralStatistic(long testsGeneralStatisticCount,
             IEnumerable<TestGeneralStatisticDto> testsGeneralStatistic);
+
+        IActionResult ComposeForGetResult(Result<TestResultDto> result);
     }
 }

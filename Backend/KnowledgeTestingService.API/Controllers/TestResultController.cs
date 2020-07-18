@@ -27,8 +27,16 @@ namespace KnowledgeTestingService.API.Controllers
             this.mapper = mapper;
         }
 
+        /// <summary>
+        /// Get general statistic of each test in range.
+        /// </summary>
+        /// <param name="offset">Number of tests to skip</param>
+        /// <param name="count">Number of tests to take</param>
+        /// <returns>Returns general statistic of each test in range</returns>
+        /// <response code="200">Always</response>
         [Authorize(Roles = "admin")]
         [HttpGet("GetTestsGeneralStatistic")]
+        [ProducesResponseType(200)]
         public async Task<IActionResult> GetTestsGeneralStatistic(int offset, int count)
         {
             var generalStatisticCount = await testResultService.GetTestsGeneralStatisticCount();
@@ -36,7 +44,16 @@ namespace KnowledgeTestingService.API.Controllers
             return responseComposer.ComposeForGetTestsGeneralStatistic(generalStatisticCount, testsGeneralStatistic);
         }
 
+        /// <summary>
+        /// Get all user's results in range.
+        /// </summary>
+        /// <param name="offset">Number of results to skip</param>
+        /// <param name="count">Number of results to take</param>
+        /// <returns>Returns all user's results in range</returns>
+        /// <response code="200">Always</response>
+        [Authorize(Roles = "admin")]
         [HttpGet("GetAllUserResults")]
+        [ProducesResponseType(200)]
         public async Task<IActionResult> GetAllUserResults(int offset, int count)
         {
             string userId = HttpContext.User.FindFirst(ClaimTypes.Name)?.Value;
@@ -45,20 +62,35 @@ namespace KnowledgeTestingService.API.Controllers
             return responseComposer.ComposeForGetAllUsersResults(userResultsCount, allUserResults);
         }
 
+        /// <summary>
+        /// Get result by id.
+        /// </summary>
+        /// <param name="id">Result id</param>
+        /// <returns>Returns result by id</returns>
+        /// <response code="200">If get succeeded</response>
+        /// <response code="400">If id is incorrect</response>
         [HttpGet("GetResult/{id}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
         public async Task<IActionResult> GetResult(int id)
         {
             string userId = HttpContext.User.FindFirst(ClaimTypes.Name)?.Value;
-            var result = await testResultService.GetResult(userId, id);
-            if (result.Success)
-            {
-                return Ok(mapper.Map<TestResultModel>(result.Value));
-            }
 
-            return BadRequest();
+            var result = await testResultService.GetResult(userId, id);
+
+            return responseComposer.ComposeForGetResult(result);
         }
 
+        /// <summary>
+        /// Checks user's answers.
+        /// </summary>
+        /// <param name="model">Answers to check</param>
+        /// <returns>Returns result id</returns>
+        /// <response code="200">If user's answers has been accepted</response>
+        /// <response code="400">If model is incorrect</response>
         [HttpPost("CheckUserAnswers")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
         public async Task<IActionResult> CheckUserAnswers([FromBody] UserAnswersModel model)
         {
             if (model?.Answers is null)
@@ -66,7 +98,7 @@ namespace KnowledgeTestingService.API.Controllers
 
             string userId = HttpContext.User.FindFirst(ClaimTypes.Name)?.Value;
             var testResultCreateDto = mapper.Map<TestResultCreateDto>(model);
-            
+
             var result = await testResultService.AddResult(userId, testResultCreateDto);
             return responseComposer.ComposeForCheckUserAnswers(result);
         }

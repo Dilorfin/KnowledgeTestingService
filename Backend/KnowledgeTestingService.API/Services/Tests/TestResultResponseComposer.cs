@@ -51,5 +51,15 @@ namespace KnowledgeTestingService.API.Services.Tests
                 ItemsModels =  mapper.Map<IEnumerable<TestGeneralStatisticModel>>(testsGeneralStatistic)
             });
         }
+
+        public IActionResult ComposeForGetResult(Result<TestResultDto> result)
+        {
+            if (result.Success)
+            {
+                return new OkObjectResult(mapper.Map<TestResultModel>(result.Value));
+            }
+
+            return new BadRequestResult();
+        }
     }
 }
