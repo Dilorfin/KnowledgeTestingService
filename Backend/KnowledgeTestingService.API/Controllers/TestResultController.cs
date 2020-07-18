@@ -72,6 +72,8 @@ namespace KnowledgeTestingService.API.Controllers
         [HttpGet("GetResult/{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
+        [ProducesResponseType(403)]
+        [ProducesResponseType(404)]
         public async Task<IActionResult> GetResult(int id)
         {
             string userId = HttpContext.User.FindFirst(ClaimTypes.Name)?.Value;

@@ -59,7 +59,12 @@ namespace KnowledgeTestingService.API.Services.Tests
                 return new OkObjectResult(mapper.Map<TestResultModel>(result.Value));
             }
 
-            return new BadRequestResult();
+            return result.Status switch
+            {
+                -1 => new NotFoundResult(),
+                -2 => new ForbidResult(),
+                _ => new BadRequestResult()
+            };
         }
     }
 }
