@@ -24,7 +24,7 @@ namespace KnowledgeTestingService.API.Services.Tests
 
             if (result.Status == -1)
             {
-                return new BadRequestObjectResult("Such test doesn't seem to exist.");
+                return new NotFoundResult();
             }
 
             return new BadRequestResult();
